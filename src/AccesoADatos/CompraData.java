@@ -25,7 +25,7 @@ void guardarCompra (Compra compra){
     String sql = "INSERT INTO compra (idProveedor, fecha, Estado , Oferta) VALUES (?,?,?,?)";
         try{
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, compra.getProovedor().getIdProovedor());
+            ps.setInt(1, compra.getProovedor().getIdProveedor());
             ps.setDate(2, Date.valueOf(compra.getFecha()));
             ps.setBoolean(3, compra.isEstado());
             ps.setDouble(4, compra.getOferta());
