@@ -15,17 +15,26 @@ public class Compra {
     private int idCompra;
     private Proveedor proovedor;
     private LocalDate fecha;
+    private boolean estado;
+    private double Oferta;
 
-    public Compra(int idCompra, Proveedor proovedor, LocalDate fecha) {
+    public Compra(int idCompra, Proveedor proovedor, LocalDate fecha, boolean estado, double Oferta ) {
         this.idCompra = idCompra;
         this.proovedor = proovedor;
         this.fecha = fecha;
+        this.estado = estado;
+        this.Oferta = Oferta;
     }
 
-    public Compra(Proveedor proovedor, LocalDate fecha) {
+  
+
+    public Compra(Proveedor proovedor, LocalDate fecha, boolean estado) {
         this.proovedor = proovedor;
         this.fecha = fecha;
+        this.estado = estado;
     }
+
+  
 
     public Compra() {
     }
@@ -53,10 +62,25 @@ public class Compra {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
+      public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+      public double getOferta() {
+        return Oferta;
+    }
+
+    public void setOferta(double Oferta) {
+        this.Oferta = Oferta;
+    }
 
     @Override
     public String toString() {
-        return "Compra{" + "idCompra=" + idCompra + ", proovedor=" + proovedor + ", fecha=" + fecha + '}';
+        return idCompra + " " + proovedor + " " + fecha + " " + estado;
     }
     
     
