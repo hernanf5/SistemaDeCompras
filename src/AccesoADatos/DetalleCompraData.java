@@ -8,6 +8,12 @@ import Entidades.DetalleCompra;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Hernán Funes
+ */
+
+
 public class DetalleCompraData {
     
     private Connection con = null;
@@ -115,10 +121,3 @@ public class DetalleCompraData {
 
 }
 
-/**
- *
- * @author Hernán Funes
- */
-public class DetalleCompraData {
-    
-}
