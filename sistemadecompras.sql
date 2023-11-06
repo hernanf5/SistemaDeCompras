@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2023 a las 23:37:27
+-- Tiempo de generación: 06-11-2023 a las 03:43:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -31,8 +31,7 @@ CREATE TABLE `compra` (
   `idCompra` int(11) NOT NULL,
   `idProveedor` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `Estado` tinyint(1) NOT NULL,
-  `Oferta` double NOT NULL
+  `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -70,7 +69,9 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioActual`, `stock`, `estado`) VALUES
 (1, 'Coca Cola', 'gaseosa 2,5L', 900, 60, 0),
-(2, 'Producto de Prueba', 'test', 800, 100, 1);
+(2, 'Producto de Prueba', 'test', 800, 100, 1),
+(3, 'Producto de Prueba', 'test', 800, 100, 1),
+(4, 'Producto de Prueba', 'test', 800, 100, 1);
 
 -- --------------------------------------------------------
 
@@ -82,8 +83,17 @@ CREATE TABLE `proveedor` (
   `idProveedor` int(11) NOT NULL,
   `razonSocial` varchar(50) NOT NULL,
   `domicilio` varchar(50) NOT NULL,
-  `telefono` varchar(50) NOT NULL
+  `telefono` varchar(50) NOT NULL,
+  `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `proveedor` (`idProveedor`, `razonSocial`, `domicilio`, `telefono`, `Estado`) VALUES
+(1, 'San Gines', 'c/Las Tarimas 80', '2664151615', 0),
+(2, 'Arcor', 'c/Las Tarimas 86', '2664151614', 1);
 
 --
 -- Índices para tablas volcadas
@@ -136,13 +146,13 @@ ALTER TABLE `detallecompra`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
