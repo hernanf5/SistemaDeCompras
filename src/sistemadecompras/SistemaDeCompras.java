@@ -72,21 +72,13 @@ public class SistemaDeCompras {
 
            //AGREGAR -- CREATE
            
-           Compra compraPrueba = new Compra ();
+           Compra compraPrueba = new Compra (new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true), LocalDate.of(2004, 12, 18),true);          
+           DetalleCompra dc = new DetalleCompra(12, 18.60, compraPrueba, new Producto ("Producto de Prueba", "test", 800, 100, true));
+           cd.guardarDetalleCompra(dc);
            
-           compraPrueba.setProovedor(proveedorPrueba);
-           compraPrueba.setFecha(LocalDate.of(2004, 12, 18));
-           compraPrueba.setEstado(true);
-           
-           DetalleCompra detalleCompra = new DetalleCompra();
-           detalleCompra(12, 18.60, new Compra ((proveedorPrueba), LocalDate.of(2004, 12, 18), true), new Producto ("Producto de Prueba", "test", 800, 100, true));
-
-           cd.guardarDetalleCompra(detalleCompra);
-                 
-
-
-
-
+           //MODIFICAR --UPDATE
+           DetalleCompra dc2 = new DetalleCompra(1,12, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
+           cd.modificarDetalleCompra(dc2); 
     }
     
 }
