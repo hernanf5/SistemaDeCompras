@@ -25,7 +25,8 @@ public class SistemaDeCompras {
         //PRUEBAS
         ProductoData pd = new ProductoData();
         ProveedorData prd = new ProveedorData();
-        DetalleCompraData cd = new DetalleCompraData();
+        CompraData cd = new CompraData();
+        DetalleCompraData dcd = new DetalleCompraData();
        
         
 
@@ -71,13 +72,15 @@ public class SistemaDeCompras {
 
            //AGREGAR -- CREATE
            
-           Compra compraPrueba = new Compra (new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true), LocalDate.of(2004, 12, 18),true);          
+           Compra compraPrueba = new Compra (new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true), LocalDate.of(2004, 12, 18),true);
+           cd.guardarCompra(compraPrueba);       
+           
            DetalleCompra dc = new DetalleCompra(12, 18.60, compraPrueba, new Producto ("Producto de Prueba", "test", 800, 100, true));
-           cd.guardarDetalleCompra(dc);
+           dcd.guardarDetalleCompra(dc);
            
            //MODIFICAR --UPDATE
            DetalleCompra dc2 = new DetalleCompra(1,10, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
-           cd.modificarDetalleCompra(dc2); 
+           dcd.modificarDetalleCompra(dc2); 
     }
     
 }
