@@ -68,7 +68,6 @@ public class SistemaDeCompras {
 
    //  public Compra(int idCompra, Proveedor proovedor, LocalDate fecha, boolean estado, double Oferta )
    // DetalleCompra    (int idDetalle, int cantidad, double precioCosto, Compra compra, Producto producto)
-   //inscripcion.guardarInscripcion(new Inscripcion(8.6 , new Alumno(6,"Funes", "Hernan",22222222,LocalDate.of(1995,8, 9),true), new Materia(1, "Matematica", 1, true)));
 
            //AGREGAR -- CREATE
            
@@ -77,7 +76,7 @@ public class SistemaDeCompras {
            cd.guardarDetalleCompra(dc);
            
            //MODIFICAR --UPDATE
-           DetalleCompra dc2 = new DetalleCompra(1,12, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
+           DetalleCompra dc2 = new DetalleCompra(1,10, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
            cd.modificarDetalleCompra(dc2); 
     }
     
