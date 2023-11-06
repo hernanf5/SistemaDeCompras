@@ -1,8 +1,16 @@
 
 package sistemadecompras;
 
+import AccesoADatos.CompraData;
+import AccesoADatos.DetalleCompraData;
 import AccesoADatos.ProductoData;
+import AccesoADatos.ProveedorData;
+import Entidades.Compra;
+import Entidades.DetalleCompra;
 import Entidades.Producto;
+import Entidades.Proveedor;
+import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -16,15 +24,22 @@ public class SistemaDeCompras {
     public static void main(String[] args) {
         //PRUEBAS
         ProductoData pd = new ProductoData();
+        ProveedorData prd = new ProveedorData();
+        DetalleCompraData cd = new DetalleCompraData();
+       
+        
+
         
         //AGREGAR -- CREATE
-        //String nombreProducto, String descripcion, double precioActual, int stock, boolean estado
-//        Producto productoPrueba = new Producto("Producto de Prueba", "test", 800, 100, true);
+       // String nombreProducto, String descripcion, double precioActual, int stock, boolean estado
+        Producto productoPrueba = new Producto("Producto de Prueba", "test", 800, 100, true);
 //        System.out.println(productoPrueba);
 //        pd.guardarProducto(productoPrueba);
+        
+        
 
         //LEER -- READ
-        System.out.println(pd.listarProductos());
+//        System.out.println(pd.listarProductos());
 
         //MODIFICAR --UPDATE
 //        Producto productoPrueba = new Producto(1, "Coca Cola", "gaseosa 2,5L", 900, 60, true);
@@ -32,6 +47,46 @@ public class SistemaDeCompras {
 
         //BORRAR -- DELETE
 //        pd.borrarProducto(1);
+
+
+
+
+  //public Proveedor(String razonSocial, String domicilio, String telefono, boolean estado) 
+  
+         //AGREGAR -- CREATE
+         Proveedor proveedorPrueba = new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true);
+//         System.out.println(proveedorPrueba);
+//         prd.guardarProveedor(proveedorPrueba);
+         
+//         //MODIFICAR --UPDATE
+//         Proveedor proveedorPrueba = new Proveedor (1,"San Gines", "c/Las Tarimas 80", "2664151615", true);
+//        prd.modificarProveedor(proveedorPrueba);
+//        
+//         //BORRAR -- DELETE
+//         prd.eliminarProveedor(proveedorPrueba);
+         
+
+   //  public Compra(int idCompra, Proveedor proovedor, LocalDate fecha, boolean estado, double Oferta )
+   // DetalleCompra    (int idDetalle, int cantidad, double precioCosto, Compra compra, Producto producto)
+   //inscripcion.guardarInscripcion(new Inscripcion(8.6 , new Alumno(6,"Funes", "Hernan",22222222,LocalDate.of(1995,8, 9),true), new Materia(1, "Matematica", 1, true)));
+
+           //AGREGAR -- CREATE
+           
+           Compra compraPrueba = new Compra ();
+           
+           compraPrueba.setProovedor(proveedorPrueba);
+           compraPrueba.setFecha(LocalDate.of(2004, 12, 18));
+           compraPrueba.setEstado(true);
+           
+           DetalleCompra detalleCompra = new DetalleCompra();
+           detalleCompra(12, 18.60, new Compra ((proveedorPrueba), LocalDate.of(2004, 12, 18), true), new Producto ("Producto de Prueba", "test", 800, 100, true));
+
+           cd.guardarDetalleCompra(detalleCompra);
+                 
+
+
+
+
     }
     
 }

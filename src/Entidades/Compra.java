@@ -16,14 +16,12 @@ public class Compra {
     private Proveedor proovedor;
     private LocalDate fecha;
     private boolean estado;
-    private double Oferta;
 
-    public Compra(int idCompra, Proveedor proovedor, LocalDate fecha, boolean estado, double Oferta ) {
+    public Compra(int idCompra, Proveedor proovedor, LocalDate fecha, boolean estado ) {
         this.idCompra = idCompra;
         this.proovedor = proovedor;
         this.fecha = fecha;
         this.estado = estado;
-        this.Oferta = Oferta;
     }
 
   
@@ -70,13 +68,6 @@ public class Compra {
         this.estado = estado;
     }
     
-      public double getOferta() {
-        return Oferta;
-    }
-
-    public void setOferta(double Oferta) {
-        this.Oferta = Oferta;
-    }
 
     @Override
     public String toString() {

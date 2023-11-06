@@ -28,7 +28,6 @@ void guardarCompra (Compra compra){
             ps.setInt(1, compra.getProovedor().getIdProveedor());
             ps.setDate(2, Date.valueOf(compra.getFecha()));
             ps.setBoolean(3, compra.isEstado());
-            ps.setDouble(4, compra.getOferta());
             ps.executeUpdate();
             ResultSet rs =ps.getGeneratedKeys();
             if(rs.next()){
@@ -73,7 +72,6 @@ void modificarCompra (Compra compra){
             ps = con.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(compra.getFecha()));
             ps.setBoolean(2, compra.isEstado());
-            ps.setDouble(3, compra.getOferta());
             ps.setInt (4, compra.getIdCompra());
             int exito = ps.executeUpdate();
             

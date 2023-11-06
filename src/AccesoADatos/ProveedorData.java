@@ -68,7 +68,7 @@ public class ProveedorData {
     }
 
     public void eliminarProveedor(Proveedor proveedor) {
-        String sql = "UPDATE proveedor SET estado = 0 WHERE idProducto = ?";
+        String sql = "UPDATE proveedor SET estado = 0 WHERE idProveedor = ?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
