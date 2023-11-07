@@ -46,6 +46,35 @@ public class ProductoData {
     
     
     //Comportamiento listar(READ), primer item. No es necesario probar en primera entrega.
+        public Producto buscarProducto(int id){
+        Producto producto = null;
+        String sql = "SELECT * FROM producto WHERE idProducto = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                ProveedorData pd = new ProveedorData();
+                producto = new Producto();
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecioActual(rs.getDouble("precioActual"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setEstado(rs.getBoolean("estado"));
+            }else{
+                JOptionPane.showMessageDialog(null, "El producto no existe");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de producto "+ ex.getMessage());
+        }
+        
+        return producto;
+    }
+    
+    
     public List<Producto> buscarProductoPorFecha(LocalDate fecha){
         
         List<Producto> productos = new ArrayList<>();

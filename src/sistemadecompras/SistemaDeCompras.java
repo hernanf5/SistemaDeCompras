@@ -24,16 +24,16 @@ public class SistemaDeCompras {
     public static void main(String[] args) {
         //PRUEBAS
         ProductoData pd = new ProductoData();
-        ProveedorData prd = new ProveedorData();
+//        ProveedorData prd = new ProveedorData();
         CompraData cd = new CompraData();
         DetalleCompraData dcd = new DetalleCompraData();
        
-        
+
 
         
         //AGREGAR -- CREATE
        // String nombreProducto, String descripcion, double precioActual, int stock, boolean estado
-        Producto productoPrueba = new Producto("Producto de Prueba", "test", 800, 100, true);
+//        Producto productoPrueba = new Producto("Producto de Prueba", "test", 800, 100, true);
 //        System.out.println(productoPrueba);
 //        pd.guardarProducto(productoPrueba);
         
@@ -55,7 +55,7 @@ public class SistemaDeCompras {
   //public Proveedor(String razonSocial, String domicilio, String telefono, boolean estado) 
   
          //AGREGAR -- CREATE
-         Proveedor proveedorPrueba = new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true);
+//         Proveedor proveedorPrueba = new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true);
 //         System.out.println(proveedorPrueba);
 //         prd.guardarProveedor(proveedorPrueba);
          
@@ -72,15 +72,15 @@ public class SistemaDeCompras {
 
            //AGREGAR -- CREATE
            
-           Compra compraPrueba = new Compra (new Proveedor ("Arcor", "c/Las Tarimas 86", "2664151614", true), LocalDate.of(2004, 12, 18),true);
-           cd.guardarCompra(compraPrueba);       
-           
-           DetalleCompra dc = new DetalleCompra(12, 18.60, compraPrueba, new Producto ("Producto de Prueba", "test", 800, 100, true));
-           dcd.guardarDetalleCompra(dc);
-           
-           //MODIFICAR --UPDATE
-           DetalleCompra dc2 = new DetalleCompra(1,10, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
-           dcd.modificarDetalleCompra(dc2); 
+//            Compra compraPrueba = new Compra (new Proveedor (2,"Arcor", "c/Las Tarimas 86", "2664151614", true), LocalDate.of(2004, 12, 18),true);
+//            cd.guardarCompra(compraPrueba);
+                      
+           DetalleCompra dc = new DetalleCompra(12, 18.60, cd.buscarCompra(4), pd.buscarProducto(2));
+//           dcd.guardarDetalleCompra(dc);
+//           
+//           //MODIFICAR --UPDATE
+//           DetalleCompra dc2 = new DetalleCompra(1,10, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
+//           dcd.modificarDetalleCompra(dc2); 
     }
     
 }

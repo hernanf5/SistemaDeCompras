@@ -84,5 +84,31 @@ public class ProveedorData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de los proveedores. " + ex);
         }
     }
+    
+    public Proveedor buscarProveedor(int id){
+        Proveedor proveedor = null;
+        String sql = "SELECT * from proveedor WHERE idProveedor = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                proveedor = new Proveedor();
+                proveedor.setIdProveedor(id);
+                proveedor.setRazonSocial(rs.getString("razonSocial"));
+                proveedor.setDomicilio(rs.getString("domicilio"));
+                proveedor.setTelefono(rs.getString("telefono"));
+                proveedor.setEstado(rs.getBoolean("Estado"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe el proveedor");                
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de los proveedor. " + ex);
+        }
+        
+        return proveedor;
+    }
 }
 

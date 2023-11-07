@@ -56,6 +56,41 @@ public class DetalleCompraData {
         }
     }
     
+    
+//        private int idDetalle;
+//    private int cantidad;
+//    private double precioCosto;
+//    private Compra compra;
+//    private Producto producto;
+    
+    public DetalleCompra buscarDetalleCompra(int id){
+        DetalleCompra detalleCompra = null;
+        String sql = "SELECT * FROM detallecompra WHERE idDetalle = ?";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                CompraData cd = new CompraData();
+                ProductoData pd = new ProductoData();
+                detalleCompra = new DetalleCompra();
+                detalleCompra.setIdDetalle(id);
+                detalleCompra.setCantidad(rs.getInt("cantidad"));
+                detalleCompra.setPrecioCosto(rs.getDouble("precioCosto"));
+                detalleCompra.setCompra(cd.buscarCompra(rs.getInt("idCompra")));
+                detalleCompra.setProducto(pd.buscarProducto(rs.getInt("idProducto")));
+            }else{
+                JOptionPane.showMessageDialog(null, "El detalle de compra no existe");
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de detalle de compra "+ ex.getMessage());
+        }
+        
+        return detalleCompra;
+    }
+    
 //    public List<DetalleCompra> obtenerDetalleXcompra(int idCompra) {
 //        
 //        List<DetalleCompra> detalles = new ArrayList<>();
