@@ -64,10 +64,12 @@ public class ProveMax extends javax.swing.JFrame {
         );
         jDescritorioLayout.setVerticalGroup(
             jDescritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 557, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
 
+        jMCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icon-Compras.png"))); // NOI18N
         jMCompra.setText("Compra");
+        jMCompra.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jMCompraProducta.setText("Compra de Productos");
         jMCompraProducta.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +81,9 @@ public class ProveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jMCompra);
 
+        jMProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icon-Productos.png"))); // NOI18N
         jMProducto.setText("Producto");
+        jMProducto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jMAgregarProductos.setText("Agregar Productos");
         jMAgregarProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +103,9 @@ public class ProveMax extends javax.swing.JFrame {
 
         jMenuBar1.add(jMProducto);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Icon-Proveedores.png"))); // NOI18N
         jMenu3.setText("Proveedor");
+        jMenu3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         jMAgregarProveedores.setText("Agregar Proveedores");
         jMAgregarProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +135,7 @@ public class ProveMax extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDescritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addComponent(jDescritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
 
         pack();
