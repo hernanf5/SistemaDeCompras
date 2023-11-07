@@ -24,7 +24,7 @@ public class SistemaDeCompras {
     public static void main(String[] args) {
         //PRUEBAS
         ProductoData pd = new ProductoData();
-//        ProveedorData prd = new ProveedorData();
+        ProveedorData prd = new ProveedorData();
         CompraData cd = new CompraData();
         DetalleCompraData dcd = new DetalleCompraData();
        
@@ -75,12 +75,22 @@ public class SistemaDeCompras {
 //            Compra compraPrueba = new Compra (new Proveedor (2,"Arcor", "c/Las Tarimas 86", "2664151614", true), LocalDate.of(2004, 12, 18),true);
 //            cd.guardarCompra(compraPrueba);
                       
-           DetalleCompra dc = new DetalleCompra(12, 18.60, cd.buscarCompra(4), pd.buscarProducto(2));
+//           DetalleCompra dc = new DetalleCompra(12, 18.60, cd.buscarCompra(4), pd.buscarProducto(3));
 //           dcd.guardarDetalleCompra(dc);
 //           
-//           //MODIFICAR --UPDATE
-//           DetalleCompra dc2 = new DetalleCompra(1,10, 18.60, compraPrueba, new Producto ("Frigorifico", "Magnum", 800, 100, true));
-//           dcd.modificarDetalleCompra(dc2); 
+            //
+
+            //int idCompra, Proveedor proveedor, LocalDate fecha, boolean estado 
+           //MODIFICAR --UPDATE
+//           Compra compraModificada = new Compra(4, prd.buscarProveedor(2), LocalDate.of(2023, 12, 18), false );
+//           cd.modificarCompra(compraModificada);
+           
+           //modifica cantidad y precio
+//           dcd.modificarDetalleCompra(14, 7, 15.60); 
+
+           //BORRAR -- DELETE
+//           dcd.borrarDetalleCompra(4);
+           
     }
     
 }

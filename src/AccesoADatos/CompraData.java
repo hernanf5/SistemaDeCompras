@@ -41,12 +41,12 @@ private Connection  con = null;
 
     }
 
-    public void borrarCompra (Compra compra){
+    public void borrarCompra (int idCompra){
         String sql = "UPDATE compra SET Estado = 0 WHERE idCompra = ?";
             PreparedStatement ps = null;
             try{
                 ps = con.prepareStatement(sql);
-                ps.setInt(1, compra.getIdCompra());
+                ps.setInt(1, idCompra);
 
                 int exito = ps.executeUpdate();
 
@@ -65,14 +65,14 @@ private Connection  con = null;
     }
 
     public void modificarCompra (Compra compra){
-            String sql = "UPDATE compra SET fecha = ?, Estado = ?, Oferta = ? WHERE idCompra = ?";
+            String sql = "UPDATE compra SET fecha = ?, Estado = ? WHERE idCompra = ?";
             PreparedStatement ps = null;
             try{           
 
                 ps = con.prepareStatement(sql);
                 ps.setDate(1, Date.valueOf(compra.getFecha()));
                 ps.setBoolean(2, compra.isEstado());
-                ps.setInt (4, compra.getIdCompra());
+                ps.setInt (3, compra.getIdCompra());
                 int exito = ps.executeUpdate();
 
                 if(exito == 1){
@@ -113,34 +113,6 @@ private Connection  con = null;
         return compra;
     }
 
-//    public Alumno buscarAlumno(int id){
-//        Alumno alumno = null;
-//        String sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado = 1";
-//        PreparedStatement ps = null;
-//        try{
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            
-//            ResultSet rs = ps.executeQuery();
-//            if(rs.next()){
-//                alumno = new Alumno();
-//                alumno.setIdAlumno(id);
-//                alumno.setDni(rs.getInt("dni"));
-//                alumno.setApellido(rs.getString("apellido"));
-//                alumno.setNombre(rs.getString("nombre"));
-//                alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-//                alumno.setEstado(true);
-//                
-//            }else{
-//                JOptionPane.showMessageDialog(null, "No existe el alumno");
-//                ps.close();
-//            }
-//        }catch (SQLException ex){
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de alumno"+ ex.getMessage());
-//        }
-//        return alumno;
-//        
-//    }
 
 
 

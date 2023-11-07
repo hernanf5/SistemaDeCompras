@@ -124,16 +124,16 @@ public class DetalleCompraData {
 //        return detalles;
 //    }
     
-    public DetalleCompra modificarDetalleCompra(DetalleCompra dc) { 
+    public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) { 
 
         String sql = "UPDATE detalleCompra SET cantidad=?, precioCosto=?  WHERE idDetalle=?";
         PreparedStatement ps = null;
         try
         {
-            ps = con.prepareStatement(sql);//envia la sentencia sql a la base de datos
-            ps.setInt(1, dc.getCantidad());
-            ps.setDouble(2, dc.getPrecioCosto());
-            ps.setInt(3, dc.getIdDetalle());
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cantidad);
+            ps.setDouble(2, precioCosto);
+            ps.setInt(3, idDetalle);
 
             int filas = ps.executeUpdate();
             if (filas == 1)
@@ -151,8 +151,33 @@ public class DetalleCompraData {
         {
             JOptionPane.showMessageDialog(null, "Error al modificar Detalle de Compra: " + ex.getMessage());
         }
-        return dc;
-    } 
+    }
+    
+    //DELETE
+    
+    
+        public void borrarDetalleCompra(int idDetalle) {
+
+        try {
+
+            String sql = "DELETE FROM detallecompra WHERE idDetalle =? ;";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idDetalle);
+
+            int filas = ps.executeUpdate();
+            if (filas > 0) {
+                JOptionPane.showMessageDialog(null, "detalle de compra eliminado");
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el detalle de compra");
+            }
+
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detallecompra " + ex.getMessage());
+        }
+    }
 
 }
 
