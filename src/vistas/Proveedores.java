@@ -49,13 +49,13 @@ public class Proveedores extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Proveedores");
 
-        jLabel2.setText("Cuil :");
+        jLabel2.setText("Identificador :");
 
-        jLabel3.setText("Razon Social :");
+        jLabel3.setText("Razón Social :");
 
         jLabel4.setText("Domicilio :");
 
-        jLabel5.setText("Telefono :");
+        jLabel5.setText("Teléfono :");
 
         jLabel6.setText("Estado :");
 
@@ -93,9 +93,6 @@ public class Proveedores extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -113,17 +110,20 @@ public class Proveedores extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jBBuscar))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTRazonSocial, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                        .addComponent(jTDomicilio, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTDomicilio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                                         .addComponent(jTTelefono, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jREstado, javax.swing.GroupLayout.Alignment.LEADING))))
+                                        .addComponent(jREstado, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTRazonSocial))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addComponent(jBLimpiar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBModificar)
-                                .addGap(32, 32, 32)
-                                .addComponent(jBSalir)))))
+                                .addGap(18, 18, 18)
+                                .addComponent(jBSalir))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel1)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
