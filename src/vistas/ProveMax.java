@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vistas;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -28,16 +31,22 @@ public class ProveMax extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/img/Fondo.png"));
+        Image miImagen = icono.getImage();
+        jDescritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(miImagen, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMCompra = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMCompraProducta = new javax.swing.JMenuItem();
         jMProducto = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMAgregarProductos = new javax.swing.JMenuItem();
+        jMListaProductos = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMAgregarProveedores = new javax.swing.JMenuItem();
+        jMListaProveedores = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -45,51 +54,68 @@ public class ProveMax extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDescritorio.setPreferredSize(new java.awt.Dimension(900, 600));
+
+        javax.swing.GroupLayout jDescritorioLayout = new javax.swing.GroupLayout(jDescritorio);
+        jDescritorio.setLayout(jDescritorioLayout);
+        jDescritorioLayout.setHorizontalGroup(
+            jDescritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 946, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDescritorioLayout.setVerticalGroup(
+            jDescritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 557, Short.MAX_VALUE)
         );
 
         jMCompra.setText("Compra");
 
-        jMenuItem3.setText("Compra de Productos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMCompraProducta.setText("Compra de Productos");
+        jMCompraProducta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMCompraProductaActionPerformed(evt);
             }
         });
-        jMCompra.add(jMenuItem3);
+        jMCompra.add(jMCompraProducta);
 
         jMenuBar1.add(jMCompra);
 
         jMProducto.setText("Producto");
 
-        jMenuItem4.setText("Agregar Productos");
-        jMProducto.add(jMenuItem4);
+        jMAgregarProductos.setText("Agregar Productos");
+        jMAgregarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMAgregarProductosActionPerformed(evt);
+            }
+        });
+        jMProducto.add(jMAgregarProductos);
 
-        jMenuItem5.setText("Lista de Productos");
-        jMProducto.add(jMenuItem5);
+        jMListaProductos.setText("Lista de Productos");
+        jMListaProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListaProductosActionPerformed(evt);
+            }
+        });
+        jMProducto.add(jMListaProductos);
 
         jMenuBar1.add(jMProducto);
 
         jMenu3.setText("Proveedor");
 
-        jMenuItem6.setText("Agregar Proveedores");
-        jMenu3.add(jMenuItem6);
-
-        jMenuItem7.setText("Lista Proveedores");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jMAgregarProveedores.setText("Agregar Proveedores");
+        jMAgregarProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                jMAgregarProveedoresActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem7);
+        jMenu3.add(jMAgregarProveedores);
+
+        jMListaProveedores.setText("Lista Proveedores");
+        jMListaProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListaProveedoresActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMListaProveedores);
 
         jMenuBar1.add(jMenu3);
 
@@ -99,23 +125,60 @@ public class ProveMax extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jDescritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jDescritorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void jMCompraProductaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCompraProductaActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        CompraProductos cp = new CompraProductos();
+        cp.setVisible(true);
+        jDescritorio.add(cp);
+        jDescritorio.moveToFront(cp);
+    }//GEN-LAST:event_jMCompraProductaActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    private void jMListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListaProveedoresActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        ListaProveedor lp = new ListaProveedor();
+        lp.setVisible(true);
+        jDescritorio.add(lp);
+        jDescritorio.moveToFront(lp);
+    }//GEN-LAST:event_jMListaProveedoresActionPerformed
+
+    private void jMAgregarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAgregarProductosActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        AgregarProducto apd = new AgregarProducto();
+        apd.setVisible(true);
+        jDescritorio.add(apd);
+        jDescritorio.moveToFront(apd);
+    }//GEN-LAST:event_jMAgregarProductosActionPerformed
+
+    private void jMListaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListaProductosActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        ListaProductos lpd = new ListaProductos();
+        lpd.setVisible(true);
+        jDescritorio.add(lpd);
+        jDescritorio.moveToFront(lpd);
+    }//GEN-LAST:event_jMListaProductosActionPerformed
+
+    private void jMAgregarProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAgregarProveedoresActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        Proveedores ap = new Proveedores();
+        ap.setVisible(true);
+        jDescritorio.add(ap);
+        jDescritorio.moveToFront(ap);
+    }//GEN-LAST:event_jMAgregarProveedoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,17 +216,17 @@ public class ProveMax extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane jDescritorio;
+    private javax.swing.JMenuItem jMAgregarProductos;
+    private javax.swing.JMenuItem jMAgregarProveedores;
     private javax.swing.JMenu jMCompra;
+    private javax.swing.JMenuItem jMCompraProducta;
+    private javax.swing.JMenuItem jMListaProductos;
+    private javax.swing.JMenuItem jMListaProveedores;
     private javax.swing.JMenu jMProducto;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     // End of variables declaration//GEN-END:variables
 }
