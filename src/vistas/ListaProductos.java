@@ -54,6 +54,11 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         jBEliminarProc.setText("Eliminar Producto");
 
@@ -115,6 +120,10 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBModificarActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
