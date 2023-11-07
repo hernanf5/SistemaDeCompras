@@ -8,7 +8,6 @@ import AccesoADatos.ProveedorData;
 import Entidades.Proveedor;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Cristian
@@ -244,7 +243,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
             String tel = jTTelefono.getText();
             boolean estado = jREstado.isSelected();
 
-            if (proveActual != null) {
+            if (proveActual == null) {
                 proveActual = new Proveedor( razon, domi, tel, estado);
                 prove.guardarProveedor(proveActual);
             } else {
@@ -252,7 +251,6 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 proveActual.setRazonSocial(razon);
                 proveActual.setDomicilio(domi);
                 proveActual.setTelefono(tel);
-                prove.modificarProveedor(proveActual);
 
             }
 
