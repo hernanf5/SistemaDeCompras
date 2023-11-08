@@ -4,11 +4,18 @@
  */
 package vistas;
 
+import AccesoADatos.ProveedorData;
+import Entidades.Proveedor;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cristian
  */
 public class Proveedores extends javax.swing.JInternalFrame {
+    
+    private ProveedorData prove = new ProveedorData();
+    private Proveedor proveActual = null;
 
     /**
      * Creates new form Proveedores
@@ -42,7 +49,6 @@ public class Proveedores extends javax.swing.JInternalFrame {
         jBGuardar = new javax.swing.JButton();
         jBLimpiar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        jBModificar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -59,6 +65,12 @@ public class Proveedores extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Estado :");
 
+        jTCuil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTCuilActionPerformed(evt);
+            }
+        });
+
         jTRazonSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTRazonSocialActionPerformed(evt);
@@ -66,8 +78,18 @@ public class Proveedores extends javax.swing.JInternalFrame {
         });
 
         jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
         jBGuardar.setText("Guardar");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBGuardarActionPerformed(evt);
+            }
+        });
 
         jBLimpiar.setText("Limpiar");
         jBLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -77,11 +99,9 @@ public class Proveedores extends javax.swing.JInternalFrame {
         });
 
         jBSalir.setText("Salir");
-
-        jBModificar.setText("Modificar");
-        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBModificarActionPerformed(evt);
+                jBSalirActionPerformed(evt);
             }
         });
 
@@ -115,11 +135,9 @@ public class Proveedores extends javax.swing.JInternalFrame {
                                         .addComponent(jREstado, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jTRazonSocial))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
+                                .addGap(56, 56, 56)
                                 .addComponent(jBLimpiar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBModificar)
-                                .addGap(18, 18, 18)
                                 .addComponent(jBSalir))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -157,8 +175,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGuardar)
                     .addComponent(jBLimpiar)
-                    .addComponent(jBSalir)
-                    .addComponent(jBModificar))
+                    .addComponent(jBSalir))
                 .addGap(46, 46, 46))
         );
 
@@ -169,20 +186,76 @@ public class Proveedores extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTRazonSocialActionPerformed
 
-    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBModificarActionPerformed
-
     private void jBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpiarActionPerformed
-        // TODO add your handling code here:
+        limpiarCampos();
+        proveActual = null;
     }//GEN-LAST:event_jBLimpiarActionPerformed
 
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        try {
+            Integer iden = Integer.parseInt(jTCuil.getText());
+            proveActual = prove.buscarProveedor(iden);
+            
+            if (proveActual != null) {
+                jTRazonSocial.setText(proveActual.getRazonSocial());
+                jTDomicilio.setText(proveActual.getDomicilio());
+                jTTelefono.setText(proveActual.getTelefono());
+                jREstado.setSelected(proveActual.isEstado());
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un numero valido");
+            
+        }
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    private void jTCuilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCuilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTCuilActionPerformed
+
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        try {
+            
+            String razon = jTRazonSocial.getText();
+            if (razon.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No puede haber campos vacios");
+                return;
+            }
+            String domi = jTDomicilio.getText();
+            String tel = jTTelefono.getText();
+            boolean estado = jREstado.isSelected();
+            
+            if (proveActual == null) {
+                proveActual = new Proveedor( razon, domi, tel, estado);
+                prove.guardarProveedor(proveActual);
+            } else {
+                
+                proveActual.setRazonSocial(razon);
+                proveActual.setDomicilio(domi);
+                proveActual.setTelefono(tel);
+                
+            }
+            
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un identificador valido");
+    }//GEN-LAST:event_jBGuardarActionPerformed
+    }
+    
+    private void limpiarCampos() {
+        jTCuil.setText("");
+        jTRazonSocial.setText("");
+        jTDomicilio.setText("");
+        jTTelefono.setText("");
+        jREstado.setText("");
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBLimpiar;
-    private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

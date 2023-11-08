@@ -4,17 +4,29 @@
  */
 package vistas;
 
+import AccesoADatos.ProductoData;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cristian
  */
 public class ListaProductos extends javax.swing.JInternalFrame {
+    
+    
+DefaultTableModel tab = new DefaultTableModel(); 
+
+private ProductoData produc = new ProductoData();
+
 
     /**
      * Creates new form ListaProductos
      */
     public ListaProductos() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -40,6 +52,12 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Listado");
 
+        jCListaProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCListaProdActionPerformed(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -54,6 +72,11 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         jBEliminarProc.setText("Eliminar Producto");
 
@@ -116,6 +139,14 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBModificarActionPerformed
 
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jCListaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCListaProdActionPerformed
+        
+    }//GEN-LAST:event_jCListaProdActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBEliminarProc;
@@ -127,4 +158,12 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+ private void borrarFilas() {
+        int indice = tab.getRowCount() - 1;
+
+        for (int i = indice; i >= 0; i--) {
+            tab.removeRow(i);
+        }
+    }
+
 }

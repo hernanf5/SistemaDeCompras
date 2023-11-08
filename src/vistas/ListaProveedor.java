@@ -4,17 +4,41 @@
  */
 package vistas;
 
+import AccesoADatos.ProveedorData;
+import Entidades.Proveedor;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cristian
  */
 public class ListaProveedor extends javax.swing.JInternalFrame {
 
+    private ProveedorData prove = new ProveedorData();
+    private List<Proveedor> fuente;
+    private Proveedor proveActual = null;
+
+    DefaultTableModel tab = new DefaultTableModel();
+
     /**
      * Creates new form ListaProveedor
      */
     public ListaProveedor() {
         initComponents();
+
+//        jCProveedores.removeAllItems();
+//        this.proveedor = prove.listarProveedor();
+//        for(Proveedor pro : proveedor){
+//            if(pro.isEstado()== true){
+//                jCProveedores.addItem(pro);
+//            }
+//        }
+        String ids[] = {"identificador", "Razon Social", "Domicilio", "Telefono", "Estado"};
+        tab.setColumnIdentifiers(ids);
+        jTlistaProvee.setModel(tab);
+
     }
 
     /**
@@ -54,11 +78,22 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTlistaProvee);
 
         jBEliminarProvee.setText("Eliminar Proveedor");
+        jBEliminarProvee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarProveeActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBSalirActionPerformed(evt);
+            }
+        });
+
+        jCProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCProveedoresActionPerformed(evt);
             }
         });
 
@@ -117,22 +152,48 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBModificarActionPerformed
 
+    private void jCProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProveedoresActionPerformed
+   
+     
+
+
+    }//GEN-LAST:event_jCProveedoresActionPerformed
+
+    private void jBEliminarProveeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarProveeActionPerformed
+
+//        if(proveActual!=null){
+//          prove.eliminarProveedor(proveActual.getIdProveedor());
+//           proveActual=null;
+//           
+//       }else {
+//           JOptionPane.showMessageDialog(this, "No hay proveedor seleccionado");
+//       }
+    }//GEN-LAST:event_jBEliminarProveeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBEliminarProvee;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<String> jCProveedores;
+    private javax.swing.JComboBox<Proveedor> jCProveedores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTlistaProvee;
     // End of variables declaration//GEN-END:variables
+
+    private void borrarFilas() {
+        int indice = tab.getRowCount() - 1;
+
+        for (int i = indice; i >= 0; i--) {
+            tab.removeRow(i);
+        }
+    }
 }
