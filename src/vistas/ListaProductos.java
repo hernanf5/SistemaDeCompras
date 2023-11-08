@@ -4,17 +4,28 @@
  */
 package vistas;
 
+import AccesoADatos.ProductoData;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cristian
  */
 public class ListaProductos extends javax.swing.JInternalFrame {
+    
+    
+DefaultTableModel tab = new DefaultTableModel(); 
+
+private ProductoData produc = new ProductoData();
 
     /**
      * Creates new form ListaProductos
      */
     public ListaProductos() {
         initComponents();
+        
+        
+        
     }
 
     /**
@@ -136,4 +147,12 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+ private void borrarFilas() {
+        int indice = tab.getRowCount() - 1;
+
+        for (int i = indice; i >= 0; i--) {
+            tab.removeRow(i);
+        }
+    }
+
 }

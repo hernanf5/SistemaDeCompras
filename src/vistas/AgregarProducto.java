@@ -4,12 +4,18 @@
  */
 package vistas;
 
+import AccesoADatos.ProductoData;
+import Entidades.Producto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cristian
  */
 public class AgregarProducto extends javax.swing.JInternalFrame {
-
+    
+private ProductoData produ = new ProductoData();
+    private Producto produActual = null;
     /**
      * Creates new form AgregarProducto
      */
@@ -58,6 +64,11 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
         jLabel6.setText("Estado :");
 
         jBIngresar.setText("Agregar Producto");
+        jBIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBIngresarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -67,6 +78,11 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
         });
 
         jBNuevo.setText("Nuevo");
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,9 +98,8 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
                                 .addComponent(jBIngresar)
                                 .addGap(74, 74, 74)
                                 .addComponent(jBNuevo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBSalir))
-                            .addComponent(jTNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
@@ -95,14 +110,16 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
                                 .addGap(27, 27, 27)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jREstado)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                                        .addComponent(jTPrecio)
-                                        .addComponent(jTStock))))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                            .addComponent(jTPrecio)
+                                            .addComponent(jTStock)))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,10 +160,50 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        limpiarCampos();
+        produActual = null;
+    }//GEN-LAST:event_jBNuevoActionPerformed
 
+    private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarActionPerformed
+        try{
+            String nom = jTNombre.getText();
+            String desc = jTDescripcion.getText();
+            if(nom.isEmpty() || desc.isEmpty()){
+                JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
+                return;
+            }
+            Double precio = Double.parseDouble(jTPrecio.getText());
+            Integer stock = Integer.parseInt(jTStock.getText());
+            boolean estado =jREstado.isSelected();
+            
+            if(produActual == null){
+                produActual = new Producto(nom, desc, precio, stock, estado);
+                produ.guardarProducto(produActual);
+            }else{
+                produActual.setNombreProducto(nom);
+                produActual.setDescripcion(desc);
+                produActual.setPrecioActual(precio);
+                produActual.setStock(stock);
+                produ.modificarProducto(produActual);
+                
+            }
+            
+        }catch(NumberFormatException ex){
+               JOptionPane.showMessageDialog(this, "Ingresar un nombre correcto");
+    }//GEN-LAST:event_jBIngresarActionPerformed
+    }
+    private void limpiarCampos() {
+        jTNombre.setText("");
+        jTDescripcion.setText("");
+        jTPrecio.setText("");
+        jTStock.setText("");
+        jREstado.setText("");
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBIngresar;
     private javax.swing.JButton jBNuevo;

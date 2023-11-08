@@ -6,6 +6,8 @@ package AccesoADatos;
 
 import Entidades.Proveedor;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -109,6 +111,33 @@ public class ProveedorData {
         }
         
         return proveedor;
+    }
+    
+       public List<Proveedor> listarProveedor(){
+        
+        List<Proveedor> proveedores = new ArrayList<>();
+        
+        try{
+            String sql = "SELECT * FROM proveedor WHERE estado = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+                Proveedor prove = new Proveedor();
+                
+               prove.setIdProveedor(rs.getInt("idProveedor"));
+               prove.setRazonSocial(rs.getString("razonSocial"));
+               prove.setDomicilio(rs.getString("domicilio"));
+               prove.setTelefono(rs.getString("telefono"));
+               prove.setEstado(rs.getBoolean("estado"));
+                
+               proveedores.add(prove);
+               
+            }
+            ps.close();
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Error al conectar con la tabla de proveedores"+ ex);
+        }
+        return proveedores;
     }
 }
 
