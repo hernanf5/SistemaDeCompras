@@ -15,23 +15,30 @@ import javax.swing.table.DefaultTableModel;
  * @author Cristian
  */
 public class ListaProveedor extends javax.swing.JInternalFrame {
-    
-  private ProveedorData prove = new ProveedorData();  
-  
-  private List<Proveedor> proveedor;
-  
-  private Proveedor proveActual = null;
-  
- DefaultTableModel tab = new DefaultTableModel(); 
+
+    private ProveedorData prove = new ProveedorData();
+    private List<Proveedor> fuente;
+    private Proveedor proveActual = null;
+
+    DefaultTableModel tab = new DefaultTableModel();
+
     /**
      * Creates new form ListaProveedor
      */
     public ListaProveedor() {
         initComponents();
-        
-        jCProveedores.removeAllItems();
-        this.proveedor = prove.listarProveedor();
-        
+
+//        jCProveedores.removeAllItems();
+//        this.proveedor = prove.listarProveedor();
+//        for(Proveedor pro : proveedor){
+//            if(pro.isEstado()== true){
+//                jCProveedores.addItem(pro);
+//            }
+//        }
+        String ids[] = {"identificador", "Razon Social", "Domicilio", "Telefono", "Estado"};
+        tab.setColumnIdentifiers(ids);
+        jTlistaProvee.setModel(tab);
+
     }
 
     /**
@@ -145,7 +152,7 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
@@ -153,17 +160,14 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jCProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProveedoresActionPerformed
-      
-        String ids [] = { "Razon Social","Domicilio","Telefono","Estado"};
-        tab.setColumnIdentifiers(ids);
-        jTlistaProvee.setModel(tab);
-        borrarFilas();
-        
-        
+   
+     
+
+
     }//GEN-LAST:event_jCProveedoresActionPerformed
 
     private void jBEliminarProveeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarProveeActionPerformed
-       
+
 //        if(proveActual!=null){
 //          prove.eliminarProveedor(proveActual.getIdProveedor());
 //           proveActual=null;
@@ -178,13 +182,13 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBEliminarProvee;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<String> jCProveedores;
+    private javax.swing.JComboBox<Proveedor> jCProveedores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTlistaProvee;
     // End of variables declaration//GEN-END:variables
- 
+
     private void borrarFilas() {
         int indice = tab.getRowCount() - 1;
 
@@ -193,4 +197,3 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
         }
     }
 }
-

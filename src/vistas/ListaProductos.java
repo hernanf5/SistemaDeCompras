@@ -18,6 +18,7 @@ DefaultTableModel tab = new DefaultTableModel();
 
 private ProductoData produc = new ProductoData();
 
+
     /**
      * Creates new form ListaProductos
      */
@@ -50,6 +51,12 @@ private ProductoData produc = new ProductoData();
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Listado");
+
+        jCListaProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCListaProdActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -135,6 +142,10 @@ private ProductoData produc = new ProductoData();
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jCListaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCListaProdActionPerformed
+        
+    }//GEN-LAST:event_jCListaProdActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

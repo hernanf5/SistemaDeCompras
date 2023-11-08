@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import java.util.Date;
+
 /**
  *
  * @author Cristian
@@ -76,6 +78,11 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         });
 
         jBNuevo.setText("Nuevo");
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNuevoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,6 +176,11 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBAgregarCarroActionPerformed
 
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        limpiarCampos();
+       
+    }//GEN-LAST:event_jBNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregarCarro;
@@ -189,4 +201,15 @@ public class CompraProductos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTPrecio;
     private javax.swing.JTextField jTcantidad;
     // End of variables declaration//GEN-END:variables
+ 
+    private void limpiarCampos() {
+     
+        jDfecha.setDate(new Date());
+        jTPrecio.setText("");
+        jREstado.setText("");
+        jTPrecio.setText("");
+        jTcantidad.setText("");
+
+    }
 }
+
