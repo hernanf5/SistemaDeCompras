@@ -47,6 +47,8 @@ private ProductoData produ = new ProductoData();
         jBIngresar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
         jBNuevo = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jTStockMinimo = new javax.swing.JTextField();
 
         setClosable(true);
 
@@ -84,6 +86,8 @@ private ProductoData produ = new ProductoData();
             }
         });
 
+        jLabel7.setText("Stock min. :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,7 +119,12 @@ private ProductoData produ = new ProductoData();
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jTDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                                             .addComponent(jTPrecio)
-                                            .addComponent(jTStock)))))))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTStock, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jTStockMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)))
@@ -143,7 +152,10 @@ private ProductoData produ = new ProductoData();
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jTStockMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jREstado)
@@ -178,16 +190,18 @@ private ProductoData produ = new ProductoData();
             }
             Double precio = Double.parseDouble(jTPrecio.getText());
             Integer stock = Integer.parseInt(jTStock.getText());
+            Integer stockMinimo = Integer.parseInt(jTStockMinimo.getText());
             boolean estado =jREstado.isSelected();
             
             if(produActual == null){
-                produActual = new Producto(nom, desc, precio, stock, estado);
+                produActual = new Producto(nom, desc, precio, stock, stockMinimo, estado);
                 produ.guardarProducto(produActual);
             }else{
                 produActual.setNombreProducto(nom);
                 produActual.setDescripcion(desc);
                 produActual.setPrecioActual(precio);
                 produActual.setStock(stock);
+                produActual.setStockMinimo(stockMinimo);
                 produ.modificarProducto(produActual);
                 
             }
@@ -201,6 +215,7 @@ private ProductoData produ = new ProductoData();
         jTDescripcion.setText("");
         jTPrecio.setText("");
         jTStock.setText("");
+        jTStockMinimo.setText("");
         jREstado.setText("");
 
     }
@@ -214,11 +229,13 @@ private ProductoData produ = new ProductoData();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JRadioButton jREstado;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTDescripcion;
     private javax.swing.JTextField jTNombre;
     private javax.swing.JTextField jTPrecio;
     private javax.swing.JTextField jTStock;
+    private javax.swing.JTextField jTStockMinimo;
     // End of variables declaration//GEN-END:variables
 }
