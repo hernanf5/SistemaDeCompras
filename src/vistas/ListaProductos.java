@@ -44,7 +44,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jCListaProd = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTListaProd = new javax.swing.JTable();
         jBSalir = new javax.swing.JButton();
         jBEliminarProc = new javax.swing.JButton();
         jBModificar = new javax.swing.JButton();
@@ -62,7 +62,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTListaProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -73,7 +73,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTListaProd);
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -166,17 +166,21 @@ public class ListaProductos extends javax.swing.JInternalFrame {
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
 
-//        for (int i = 0; i < jTable1.getRowCount(); i++) {
-//
-//            int idProveedor = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
-//            String descripcion = (String) jTable1.getValueAt(i, 1);
-//            int precioActual = Integer.parseInt(jTable1.getValueAt(i, 2).toString());
-//            int stock = Integer.parseInt(jTable1.getValueAt(i, 3).toString());
-//            boolean estado = (boolean) jTable1.getValueAt(i, 4);
-//
-//            produc.modificarProducto(producto);
-//
-//        }
+        for (int i = 0; i < jTListaProd.getRowCount(); i++) {
+
+            int Identificador = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
+            String nombreProd = (String) jTListaProd.getValueAt(i, 1).toString();
+            String descripcion = (String) jTListaProd.getValueAt(i, 2).toString();
+            Double precioActual = Double.parseDouble(jTListaProd.getValueAt(i, 3).toString());
+            int stock = Integer.parseInt(jTListaProd.getValueAt(i, 4).toString());
+             int stockMinimo = Integer.parseInt(jTListaProd.getValueAt(i, 5).toString());
+            boolean estado = (boolean) jTListaProd.getValueAt(i, 6);
+
+            Producto producto = new Producto(Identificador, nombreProd, descripcion, precioActual, stock, stockMinimo, estado);
+            
+            produc.modificarProducto(producto);
+
+        }
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -184,15 +188,16 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jCListaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCListaProdActionPerformed
+       
         int id = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
-        String ids[] = {"Identificador", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "Estado"};
+        String ids[] = {"Identificador","Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "Estado"};
         tab.setColumnIdentifiers(ids);
-        jTable1.setModel(tab);
+        jTListaProd.setModel(tab);
         borrarFilas();
 
         for (Producto tabMos : fuente) {
             if (tabMos.getIdProducto() == id) {
-                tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(), tabMos.getStockMinimo(), tabMos.isEstado()});
+                tab.addRow(new Object[]{tabMos.getIdProducto(),tabMos.getNombreProducto(), tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(), tabMos.getStockMinimo(), tabMos.isEstado()});
             }
         }
 
@@ -203,7 +208,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jBEliminarProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarProcActionPerformed
-        int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = jTListaProd.getSelectedRow();
         if (filaSeleccionada != -1) {
             Producto a = (Producto) jCListaProd.getSelectedItem();
 
@@ -225,7 +230,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTListaProd;
     // End of variables declaration//GEN-END:variables
  private void borrarFilas() {
         int indice = tab.getRowCount() - 1;

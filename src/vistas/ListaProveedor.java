@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListaProveedor extends javax.swing.JInternalFrame {
     
     private ProveedorData prove = new ProveedorData();
-    private List<Proveedor> fuente;
+    private List<Proveedor> fuente= prove.listarProveedor();
     
     DefaultTableModel tab = new DefaultTableModel();
 
@@ -26,19 +26,8 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
      */
     public ListaProveedor() {
         initComponents();
-        
-        fuente = prove.listarProveedor();
-        
         cargarProveedor();
 
-//        jCProveedores.removeAllItems();
-//        this.proveedor = prove.listarProveedor();
-//        for(Proveedor pro : proveedor){
-//            if(pro.isEstado()== true){
-//                jCProveedores.addItem(pro);
-//            }
-//        }
-//       
     }
 
     /**
@@ -164,22 +153,23 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-//    
-//        for (int i = 0; i < jTlistaProvee.getRowCount(); i++) {
-//
-//            int identificador= ((Proveedor) jCProveedores.getSelectedItem()).getIdProveedor();
-//            
-//            String razonSocial = (String)jTlistaProvee.getValueAt(i, 1);
-//            
-//            String domicilio =(String)jTlistaProvee.getValueAt(i, 2);
-//            
-//            String telefono = (String)jTlistaProvee.getValueAt(i, 3);
-//            boolean estado = (boolean)jTlistaProvee.getValueAt(i, 4);
-//           
-//                        
-//            prove.modificarProveedor(identificador,razonSocial,domicilio,telefono,estado);
-//            
-//        }
+    
+        for (int i = 0; i < jTlistaProvee.getRowCount(); i++) {
+
+            int identificador= ((Proveedor) jCProveedores.getSelectedItem()).getIdProveedor();
+            
+            String razonSocial = (String)jTlistaProvee.getValueAt(i, 1).toString();
+            
+            String domicilio =(String)jTlistaProvee.getValueAt(i, 2).toString();
+            
+            String telefono = (String)jTlistaProvee.getValueAt(i, 3).toString();
+            boolean estado = (boolean)jTlistaProvee.getValueAt(i, 4);
+            
+           Proveedor proveedor = new Proveedor(identificador, razonSocial, domicilio, telefono, estado);
+                        
+            prove.modificarProveedor(proveedor);
+            
+        }
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jCProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProveedoresActionPerformed
