@@ -90,39 +90,40 @@ public class DetalleCompraData {
         
         return detalleCompra;
     }
-    
-//    public List<DetalleCompra> obtenerDetalleXcompra(int idCompra) {
-//        
-//        List<DetalleCompra> detalles = new ArrayList<>();
-//        DetalleCompra dc = null;
-//        String sql = "SELECT * FROM detalleCompra WHERE idCompra = ?";
-//        PreparedStatement ps=null;
-//        try{
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, idCompra);
-//            
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                dc=new DetalleCompra();
-//                dc.setIdDetalle(rs.getInt("idDetalle"));
-//                dc.setCantidad(rs.getInt("cantidad"));
-//                dc.setPrecioCosto(rs.getDouble("precioCosto"));
-//                
-//                Compra c = cd.obtenerComprasPorId(rs.getInt("idCompra"));
-//                
-//                dc.setCompra(c);
-//                
-//                Producto p=pd.buscarProducto(rs.getInt("idProducto"));
-//                dc.setProducto(p);
-//                detalles.add(dc);
-//            }
-//
-//        } catch (SQLException ex) {
-//                    JOptionPane.showMessageDialog(null, "Error al obtener el Detalle: "+ex.getMessage());        }
-//
-//        return detalles;
-//    }
+ }   
+
+    public List<DetalleCompra> obtenerDetalleCompra(int idCompra) {
+        
+        List<DetalleCompra> detalles = new ArrayList<>();
+        DetalleCompra dc = null;
+        String sql = "SELECT * FROM detalleCompra WHERE idCompra = ?";
+        PreparedStatement ps=null;
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idCompra);
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                dc=new DetalleCompra();
+                dc.setIdDetalle(rs.getInt("idDetalle"));
+                dc.setCantidad(rs.getInt("cantidad"));
+                dc.setPrecioCosto(rs.getDouble("precioCosto"));
+                
+                Compra c = cd.obtenerComprasPorId(rs.getInt("idCompra"));
+                
+                dc.setCompra(c);
+                
+                Producto p=pd.buscarProducto(rs.getInt("idProducto"));
+                dc.setProducto(p);
+                detalles.add(dc);
+            }
+
+        } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al obtener el Detalle: "+ex.getMessage());        }
+
+        return detalles;
+    }
     
     public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) { 
 
@@ -153,7 +154,7 @@ public class DetalleCompraData {
         }
     }
     
-    //DELETE
+    ///DELETE
     
     
         public void borrarDetalleCompra(int idDetalle) {
