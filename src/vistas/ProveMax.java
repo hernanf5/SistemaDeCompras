@@ -31,6 +31,8 @@ public class ProveMax extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
         ImageIcon icono = new ImageIcon(getClass().getResource("/img/Fondo.png"));
         Image miImagen = icono.getImage();
         jDescritorio = new javax.swing.JDesktopPane(){
@@ -41,6 +43,7 @@ public class ProveMax extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMCompra = new javax.swing.JMenu();
         jMCompraProducta = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMProducto = new javax.swing.JMenu();
         jMAgregarProductos = new javax.swing.JMenuItem();
         jMListaProductos = new javax.swing.JMenuItem();
@@ -52,6 +55,8 @@ public class ProveMax extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         jMenuItem2.setText("jMenuItem2");
+
+        jScrollPane1.setViewportView(jTree1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +84,14 @@ public class ProveMax extends javax.swing.JFrame {
             }
         });
         jMCompra.add(jMCompraProducta);
+
+        jMenuItem3.setText("Detalles de Compras");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMCompra.add(jMenuItem3);
 
         jMenuBar1.add(jMCompra);
 
@@ -204,6 +217,15 @@ public class ProveMax extends javax.swing.JFrame {
         jDescritorio.moveToFront(lpf);
     }//GEN-LAST:event_jMListaFechaActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+           jDescritorio.removeAll();
+        jDescritorio.repaint();
+        detalleCompra dc = new detalleCompra();
+        dc.setVisible(true);
+        jDescritorio.add(dc);
+        jDescritorio.moveToFront(dc);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -253,5 +275,8 @@ public class ProveMax extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }

@@ -174,14 +174,14 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private void jCProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProveedoresActionPerformed
         int id = ((Proveedor) jCProveedores.getSelectedItem()).getIdProveedor();
-        String ids[] = {"Identificador", "Razon Social", "Domicilio", "Telefono", "Estado"};
+        String ids[] = {"Identificador", "Razon Social", "Domicilio", "Telefono"};
         tab.setColumnIdentifiers(ids);
         jTlistaProvee.setModel(tab);
         borrarFilas();
         
         for (Proveedor tabMos : fuente) {
             if (tabMos.getIdProveedor() == id) {
-                tab.addRow(new Object[]{tabMos.getIdProveedor(), tabMos.getRazonSocial(), tabMos.getDomicilio(), tabMos.getTelefono(), tabMos.isEstado()});
+                tab.addRow(new Object[]{tabMos.getIdProveedor(), tabMos.getRazonSocial(), tabMos.getDomicilio(), tabMos.getTelefono()});
             }
         }
 

@@ -35,17 +35,14 @@ public class Proveedores extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTDomicilio = new javax.swing.JTextField();
-        jTCuil = new javax.swing.JTextField();
         jTRazonSocial = new javax.swing.JTextField();
         jTTelefono = new javax.swing.JTextField();
         jREstado = new javax.swing.JRadioButton();
-        jBBuscar = new javax.swing.JButton();
         jBGuardar = new javax.swing.JButton();
         jBLimpiar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
@@ -53,9 +50,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel1.setText("Proveedores");
-
-        jLabel2.setText("Identificador :");
+        jLabel1.setText("Agregar Proveedores");
 
         jLabel3.setText("Razón Social :");
 
@@ -65,22 +60,9 @@ public class Proveedores extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Estado :");
 
-        jTCuil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTCuilActionPerformed(evt);
-            }
-        });
-
         jTRazonSocial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTRazonSocialActionPerformed(evt);
-            }
-        });
-
-        jBBuscar.setText("Buscar");
-        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBBuscarActionPerformed(evt);
             }
         });
 
@@ -116,7 +98,6 @@ public class Proveedores extends javax.swing.JInternalFrame {
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,20 +105,16 @@ public class Proveedores extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTCuil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jBBuscar))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTDomicilio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                        .addComponent(jTTelefono, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jREstado, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jTRazonSocial))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jTDomicilio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                                    .addComponent(jTTelefono, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jREstado, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTRazonSocial))
+                                .addGap(18, 18, 18))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(56, 56, 56)
                                 .addComponent(jBLimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                                 .addComponent(jBSalir))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
@@ -150,12 +127,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTCuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar))
-                .addGap(26, 26, 26)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,7 +143,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jREstado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBGuardar)
                     .addComponent(jBLimpiar)
@@ -194,27 +166,6 @@ public class Proveedores extends javax.swing.JInternalFrame {
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
-
-    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        try {
-            Integer iden = Integer.parseInt(jTCuil.getText());
-            proveActual = prove.buscarProveedor(iden);
-            
-            if (proveActual != null) {
-                jTRazonSocial.setText(proveActual.getRazonSocial());
-                jTDomicilio.setText(proveActual.getDomicilio());
-                jTTelefono.setText(proveActual.getTelefono());
-                jREstado.setSelected(proveActual.isEstado());
-            }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un numero valido");
-            
-        }
-    }//GEN-LAST:event_jBBuscarActionPerformed
-
-    private void jTCuilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCuilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTCuilActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         try {
@@ -245,7 +196,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
     }
     
     private void limpiarCampos() {
-        jTCuil.setText("");
+        
         jTRazonSocial.setText("");
         jTDomicilio.setText("");
         jTTelefono.setText("");
@@ -253,19 +204,16 @@ public class Proveedores extends javax.swing.JInternalFrame {
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBLimpiar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JRadioButton jREstado;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTCuil;
     private javax.swing.JTextField jTDomicilio;
     private javax.swing.JTextField jTRazonSocial;
     private javax.swing.JTextField jTTelefono;
