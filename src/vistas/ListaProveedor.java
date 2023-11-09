@@ -18,7 +18,6 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private ProveedorData prove = new ProveedorData();
     private List<Proveedor> fuente;
-    private Proveedor proveActual = null;
 
     DefaultTableModel tab = new DefaultTableModel();
 
@@ -162,7 +161,6 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
 
     private void jCProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProveedoresActionPerformed
        int id = ((Proveedor) jCProveedores.getSelectedItem()).getIdProveedor();
-       proveActual = prove.buscarProveedor(id);
        String ids[] = {"Identificador", "Razon Social", "Domicilio", "Telefono", "Estado"};
        tab.setColumnIdentifiers(ids);
        jTlistaProvee.setModel(tab);
