@@ -4,13 +4,21 @@
  */
 package vistas;
 
+import AccesoADatos.CompraData;
+import Entidades.Compra;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Cristian
  */
 public class CompraProductos extends javax.swing.JInternalFrame {
+
+    private Compra compraActual = null;
+    private CompraData comp = new CompraData();
 
     /**
      * Creates new form Compra
@@ -169,16 +177,30 @@ public class CompraProductos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jBAgregarCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarCarroActionPerformed
-        // TODO add your handling code here:
+
+        try{
+        
+        
+        java.util.Date afecha = jDfecha.getDate();
+        LocalDate fechaNac = afecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        boolean estado = jREstado.isSelected();
+        Integer precio = Integer.parseInt(jTPrecio.getText());
+        Integer cantidad = Integer.parseInt(jTcantidad.getText());
+        
+        
+        
+        }catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(this, "Debe ingresar los campos correctamente");
+        }
     }//GEN-LAST:event_jBAgregarCarroActionPerformed
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
         limpiarCampos();
-       
+
     }//GEN-LAST:event_jBNuevoActionPerformed
 
 
@@ -201,9 +223,9 @@ public class CompraProductos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTPrecio;
     private javax.swing.JTextField jTcantidad;
     // End of variables declaration//GEN-END:variables
- 
+
     private void limpiarCampos() {
-     
+
         jDfecha.setDate(new Date());
         jTPrecio.setText("");
         jREstado.setText("");
@@ -212,4 +234,3 @@ public class CompraProductos extends javax.swing.JInternalFrame {
 
     }
 }
-

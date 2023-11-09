@@ -5,6 +5,8 @@
 package vistas;
 
 import AccesoADatos.ProductoData;
+import Entidades.Producto;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -12,21 +14,21 @@ import javax.swing.table.DefaultTableModel;
  * @author Cristian
  */
 public class ListaProductos extends javax.swing.JInternalFrame {
-    
-    
-DefaultTableModel tab = new DefaultTableModel(); 
 
-private ProductoData produc = new ProductoData();
+    DefaultTableModel tab = new DefaultTableModel();
 
+    private ProductoData produc = new ProductoData();
+    private List<Producto> fuente;
 
     /**
      * Creates new form ListaProductos
      */
     public ListaProductos() {
         initComponents();
-        
-        
-        
+
+        fuente = produc.listarProductos();
+        cargarProveedor();
+
     }
 
     /**
@@ -46,6 +48,8 @@ private ProductoData produc = new ProductoData();
         jBSalir = new javax.swing.JButton();
         jBEliminarProc = new javax.swing.JButton();
         jBModificar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
 
         setClosable(true);
 
@@ -79,11 +83,26 @@ private ProductoData produc = new ProductoData();
         });
 
         jBEliminarProc.setText("Eliminar Producto");
+        jBEliminarProc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEliminarProcActionPerformed(evt);
+            }
+        });
 
         jBModificar.setText("Modificar");
         jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBModificarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabel2.setText("Productos: ");
+
+        jRadioButton1.setText("Stock minimo");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
             }
         });
 
@@ -94,7 +113,7 @@ private ProductoData produc = new ProductoData();
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jBEliminarProc, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                .addComponent(jBEliminarProc, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jBModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -103,15 +122,21 @@ private ProductoData produc = new ProductoData();
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jCListaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1)))
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel2)
+                        .addGap(77, 77, 77)
+                        .addComponent(jCListaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRadioButton1)
+                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,11 +145,15 @@ private ProductoData produc = new ProductoData();
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCListaProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCListaProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jRadioButton1)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalir)
                     .addComponent(jBEliminarProc)
@@ -136,7 +165,18 @@ private ProductoData produc = new ProductoData();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
-        // TODO add your handling code here:
+
+//        for (int i = 0; i < jTable1.getRowCount(); i++) {
+//
+//            int idProveedor = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
+//            String descripcion = (String) jTable1.getValueAt(i, 1);
+//            int precioActual = Integer.parseInt(jTable1.getValueAt(i, 2).toString());
+//            int stock = Integer.parseInt(jTable1.getValueAt(i, 3).toString());
+//            boolean estado = (boolean) jTable1.getValueAt(i, 4);
+//
+//            produc.modificarProducto(producto);
+//
+//        }
     }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
@@ -144,16 +184,45 @@ private ProductoData produc = new ProductoData();
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jCListaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCListaProdActionPerformed
-        
+        int id = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
+        String ids[] = {"Identificador", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "Estado"};
+        tab.setColumnIdentifiers(ids);
+        jTable1.setModel(tab);
+        borrarFilas();
+
+        for (Producto tabMos : fuente) {
+            if (tabMos.getIdProducto() == id) {
+                tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(), tabMos.getStockMinimo(), tabMos.isEstado()});
+            }
+        }
+
     }//GEN-LAST:event_jCListaProdActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jBEliminarProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarProcActionPerformed
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            Producto a = (Producto) jCListaProd.getSelectedItem();
+
+            int idProducto = (Integer) tab.getValueAt(filaSeleccionada, 0);
+
+            produc.borrarProducto(idProducto);
+            borrarFilas();
+        }
+    }//GEN-LAST:event_jBEliminarProcActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBEliminarProc;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<String> jCListaProd;
+    private javax.swing.JComboBox<Producto> jCListaProd;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
@@ -166,4 +235,9 @@ private ProductoData produc = new ProductoData();
         }
     }
 
+    private void cargarProveedor() {
+        for (Producto item : fuente) {
+            jCListaProd.addItem(item);
+        }
+    }
 }
