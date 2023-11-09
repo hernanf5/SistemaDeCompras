@@ -57,11 +57,11 @@ public class DetalleCompraData {
     }
     
     
-//        private int idDetalle;
-//    private int cantidad;
-//    private double precioCosto;
-//    private Compra compra;
-//    private Producto producto;
+        private int idDetalle;
+    private int cantidad;
+    private double precioCosto;
+    private Compra compra;
+    private Producto producto;
     
     public DetalleCompra buscarDetalleCompra(int id){
         DetalleCompra detalleCompra = null;
@@ -154,7 +154,7 @@ public class DetalleCompraData {
         }
     }
     
-    ///DELETE
+    
     
     
         public void borrarDetalleCompra(int idDetalle) {
