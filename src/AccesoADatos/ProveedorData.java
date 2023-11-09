@@ -118,9 +118,9 @@ public class ProveedorData {
         List<Proveedor> proveedores = new ArrayList<>();
         
         try {
-            String sql = "SELECT * FROM proveedor WHERE estado = 1 AND estado = 0";
+            String sql = "SELECT * FROM `proveedor` WHERE Estado = 1;";
             PreparedStatement ps = con.prepareStatement(sql);
-            
+ 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 

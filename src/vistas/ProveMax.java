@@ -44,6 +44,7 @@ public class ProveMax extends javax.swing.JFrame {
         jMProducto = new javax.swing.JMenu();
         jMAgregarProductos = new javax.swing.JMenuItem();
         jMListaProductos = new javax.swing.JMenuItem();
+        jMListaFecha = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMAgregarProveedores = new javax.swing.JMenuItem();
         jMListaProveedores = new javax.swing.JMenuItem();
@@ -100,6 +101,14 @@ public class ProveMax extends javax.swing.JFrame {
             }
         });
         jMProducto.add(jMListaProductos);
+
+        jMListaFecha.setText("Lista por fecha");
+        jMListaFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMListaFechaActionPerformed(evt);
+            }
+        });
+        jMProducto.add(jMListaFecha);
 
         jMenuBar1.add(jMProducto);
 
@@ -186,6 +195,15 @@ public class ProveMax extends javax.swing.JFrame {
         jDescritorio.moveToFront(ap);
     }//GEN-LAST:event_jMAgregarProveedoresActionPerformed
 
+    private void jMListaFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMListaFechaActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        ListarProductosFechas lpf = new ListarProductosFechas();
+        lpf.setVisible(true);
+        jDescritorio.add(lpf);
+        jDescritorio.moveToFront(lpf);
+    }//GEN-LAST:event_jMListaFechaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -227,6 +245,7 @@ public class ProveMax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMAgregarProveedores;
     private javax.swing.JMenu jMCompra;
     private javax.swing.JMenuItem jMCompraProducta;
+    private javax.swing.JMenuItem jMListaFecha;
     private javax.swing.JMenuItem jMListaProductos;
     private javax.swing.JMenuItem jMListaProveedores;
     private javax.swing.JMenu jMProducto;
