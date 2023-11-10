@@ -6,7 +6,9 @@ package vistas;
 
 import AccesoADatos.ProductoData;
 import Entidades.Producto;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,21 +20,19 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     DefaultTableModel tab = new DefaultTableModel();
 
     private ProductoData produc = new ProductoData();
-    private List<Producto> fuente;
-    private List<Producto> fuente2;
+    private List<Producto> fuente = new ArrayList<>();
+
 
     /**
      * Creates new form ListaProductos
      */
     public ListaProductos() {
         initComponents();
-
         fuente = produc.listarProductos();
-        fuente2 = produc.stockMinimo();
-
-        String ids[] = {"Identificador", "Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "estado"};
+        String ids[] = {"Identificador", "Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo"};
         tab.setColumnIdentifiers(ids);
         jTListaProd.setModel(tab);
+        cargarFilas();
     }
 
     /**
@@ -52,7 +52,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jBEliminarProc = new javax.swing.JButton();
         jBModificar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jRStockMinimo = new javax.swing.JRadioButton();
         jTBusqueda = new javax.swing.JTextField();
 
         setClosable(true);
@@ -97,10 +97,10 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel2.setText("Productos: ");
 
-        jRadioButton1.setText("Stock minimo");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        jRStockMinimo.setText("Stock minimo");
+        jRStockMinimo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                jRStockMinimoActionPerformed(evt);
             }
         });
 
@@ -124,23 +124,21 @@ public class ListaProductos extends javax.swing.JInternalFrame {
                 .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabel2)
-                        .addGap(72, 72, 72)
-                        .addComponent(jTBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jRStockMinimo)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(jLabel1))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(24, 24, 24)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(66, 66, 66)
+                            .addComponent(jLabel2)
+                            .addGap(72, 72, 72)
+                            .addComponent(jTBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton1)
-                .addGap(130, 130, 130))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,9 +151,9 @@ public class ListaProductos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(jRStockMinimo)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -178,9 +176,8 @@ public class ListaProductos extends javax.swing.JInternalFrame {
             Double precioActual = Double.parseDouble(jTListaProd.getValueAt(i, 3).toString());
             int stock = Integer.parseInt(jTListaProd.getValueAt(i, 4).toString());
             int stockMinimo = Integer.parseInt(jTListaProd.getValueAt(i, 5).toString());
-            boolean estado = (boolean) jTListaProd.getValueAt(i, 6);
 
-            Producto producto = new Producto(Identificador, nombreProd, descripcion, precioActual, stock, stockMinimo, estado);
+            Producto producto = new Producto(Identificador, nombreProd, descripcion, precioActual, stock, stockMinimo, true);
 
             produc.modificarProducto(producto);
 
@@ -191,16 +188,31 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        borrarFilas();
-
-        for (Producto tabMos : fuente2) {
-
-            tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getNombreProducto(),
-                tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
-                tabMos.getStockMinimo(), tabMos.isEstado()});
+    private void jRStockMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRStockMinimoActionPerformed
+        if (jRStockMinimo.isSelected()) {
+            List<Producto> fuente2 = new ArrayList<>();
+            borrarFilas();
+            for (Producto prod : fuente) {
+                if (prod.getStock() <= prod.getStockMinimo()) {
+                    fuente2.add(prod);
+                }
+            }
+            if (fuente2 != null) {
+                for (Producto tabMos : fuente2) {
+                    tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getNombreProducto(),
+                        tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
+                        tabMos.getStockMinimo(), tabMos.isEstado()});
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay productos cuyo stock este por debajo del minimo");
+            }
+        }else{
+            borrarFilas();
+            cargarFilas();
         }
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+
+    }//GEN-LAST:event_jRStockMinimoActionPerformed
 
     private void jBEliminarProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarProcActionPerformed
         int filaSeleccionada = jTListaProd.getSelectedRow();
@@ -234,17 +246,25 @@ public class ListaProductos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRStockMinimo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTBusqueda;
     private javax.swing.JTable jTListaProd;
     // End of variables declaration//GEN-END:variables
- private void borrarFilas() {
+    private void borrarFilas() {
         int indice = tab.getRowCount() - 1;
 
         for (int i = indice; i >= 0; i--) {
             tab.removeRow(i);
+        }
+    }
+
+    private void cargarFilas() {
+        for (Producto tabMos : fuente) {
+            tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getNombreProducto(),
+                tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
+                tabMos.getStockMinimo(), tabMos.isEstado()});
         }
     }
 

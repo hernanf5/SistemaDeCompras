@@ -163,9 +163,8 @@ public class ListaProveedor extends javax.swing.JInternalFrame {
             String domicilio =(String)jTlistaProvee.getValueAt(i, 2).toString();
             
             String telefono = (String)jTlistaProvee.getValueAt(i, 3).toString();
-            boolean estado = (boolean)jTlistaProvee.getValueAt(i, 4);
             
-           Proveedor proveedor = new Proveedor(identificador, razonSocial, domicilio, telefono, estado);
+           Proveedor proveedor = new Proveedor(identificador, razonSocial, domicilio, telefono, true);
                         
             prove.modificarProveedor(proveedor);
             
