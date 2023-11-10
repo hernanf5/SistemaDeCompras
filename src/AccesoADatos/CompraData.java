@@ -9,7 +9,6 @@ import Entidades.Producto;
 import Entidades.Proveedor;
 import java.sql.Connection;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -91,6 +90,30 @@ public class CompraData {
 
     }
 
+    public List<Compra> listarProductos() {
+        List<Compra> compras = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * from compra WHERE estado =1 ";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Compra compra = new Compra();
+                ProveedorData pd = new ProveedorData();
+                compra.setIdCompra(rs.getInt("idCompra"));
+                compra.setProveedor(pd.buscarProveedor(rs.getInt("idProveedor")));
+                compra.setFecha(rs.getDate("fecha").toLocalDate());
+                compra.setEstado(true);
+                compras.add(compra);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a las tablas " + ex.getMessage());
+        }
+
+        return compras;
+    }
+
     public Compra buscarCompra(int id) {
         Compra compra = null;
         String sql = "SELECT * FROM compra WHERE idCompra = ?";
@@ -116,8 +139,6 @@ public class CompraData {
 
         return compra;
     }
-
-   
 
 //void aplicarOferta (Compra compra)  {
 //    try{
