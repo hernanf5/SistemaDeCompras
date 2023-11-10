@@ -4,17 +4,28 @@
  */
 package vistas;
 
+import AccesoADatos.CompraData;
+import Entidades.Compra;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cristian
  */
 public class ListadoDeCompras extends javax.swing.JInternalFrame {
 
+    private CompraData comp = new CompraData();
+   private List<Compra> compra= comp.listarProductos() ;
+    
+    DefaultTableModel tab = new DefaultTableModel();
+
     /**
      * Creates new form ListadoDeCompras
      */
     public ListadoDeCompras() {
         initComponents();
+        cargarCompra();
     }
 
     /**
@@ -56,7 +67,11 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jCLisCom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCLisCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCLisComActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Seleccione una compra:");
 
@@ -115,14 +130,44 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
+    private void jCLisComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCLisComActionPerformed
+      int id = ((Compra) jCLisCom.getSelectedItem()).getIdCompra();
+        String ids[] = {"idCompra", "idProveedor", "Fecha"};
+        tab.setColumnIdentifiers(ids);
+        jTable1.setModel(tab);
+       borrarFilas();
+        
+        for (Compra tabMos : compra) {
+            if (tabMos.getIdCompra() == id) {
+                tab.addRow(new Object[]{tabMos.getIdCompra(),tabMos.getProveedor(),tabMos.getFecha()});
+            }
+        }
+
+
+    }//GEN-LAST:event_jCLisComActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<String> jCLisCom;
+    private javax.swing.JComboBox<Compra> jCLisCom;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+  private void borrarFilas() {
+        int indice = tab.getRowCount() - 1;
+        
+        for (int i = indice; i >= 0; i--) {
+            tab.removeRow(i);
+        }
+    }
+    
+    private void cargarCompra() {
+        for (Compra item : compra) {
+            jCLisCom.addItem(item);
+        }
+    }
+
 }

@@ -94,7 +94,7 @@ public class CompraData {
         List<Compra> compras = new ArrayList<>();
 
         try {
-            String sql = "SELECT * from compra WHERE estado =1 ";
+            String sql = "SELECT * from compra WHERE Estado =1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
