@@ -178,7 +178,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
             String domi = jTDomicilio.getText();
             String tel = jTTelefono.getText();
             boolean estado = jREstado.isSelected();
-            
+       
             if (proveActual == null) {
                 proveActual = new Proveedor( razon, domi, tel, estado);
                 prove.guardarProveedor(proveActual);
@@ -187,6 +187,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 proveActual.setRazonSocial(razon);
                 proveActual.setDomicilio(domi);
                 proveActual.setTelefono(tel);
+                proveActual.setEstado(estado);
                 
             }
             

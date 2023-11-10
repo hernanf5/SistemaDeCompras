@@ -4,74 +4,72 @@
  */
 package AccesoADatos;
 
+import Entidades.Compra;
 import Entidades.DetalleCompra;
+import Entidades.Producto;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Hernán Funes
  */
-
-
 public class DetalleCompraData {
-    
+
     private Connection con = null;
-      
-    private ProductoData pd=new ProductoData();
+
+    private ProductoData pd = new ProductoData();
     private CompraData cd = new CompraData();
+    private int idDetalle;
+    private int cantidad;
+    private double precioCosto;
+    private Compra compra;
+    private Producto producto;
+
     public DetalleCompraData() {
-        
-    
+
         con = Conexion.getCon();
 
     }
-    
-    public void  guardarDetalleCompra(DetalleCompra dc) {
- // int idVenta, int idProducto        
-        
+
+    public void guardarDetalleCompra(DetalleCompra dc) {
+        // int idVenta, int idProducto        
+
         String sql = "INSERT INTO detalleCompra (cantidad, precioCosto, idCompra, idProducto) VALUES (?,?,?,?)";
 
-        try{
-            
+        try {
+
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, dc.getCantidad());
             ps.setDouble(2, dc.getPrecioCosto());
             ps.setInt(3, dc.getCompra().getIdCompra());
             ps.setInt(4, dc.getProducto().getIdProducto());
-            
+
             ps.executeUpdate();
-            ResultSet rs=ps.getGeneratedKeys();
-            
-            if(rs.next()){
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if (rs.next()) {
                 dc.setIdDetalle(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Detalle compra agregado con exito.");    
+                JOptionPane.showMessageDialog(null, "Detalle compra agregado con exito.");
             }
-            
-            
+
             ps.close();
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar producto: " + ex.getMessage());
         }
     }
-    
-    
-        private int idDetalle;
-    private int cantidad;
-    private double precioCosto;
-    private Compra compra;
-    private Producto producto;
-    
-    public DetalleCompra buscarDetalleCompra(int id){
+
+    public DetalleCompra buscarDetalleCompra(int id) {
         DetalleCompra detalleCompra = null;
         String sql = "SELECT * FROM detallecompra WHERE idDetalle = ?";
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 CompraData cd = new CompraData();
                 ProductoData pd = new ProductoData();
                 detalleCompra = new DetalleCompra();
@@ -80,84 +78,76 @@ public class DetalleCompraData {
                 detalleCompra.setPrecioCosto(rs.getDouble("precioCosto"));
                 detalleCompra.setCompra(cd.buscarCompra(rs.getInt("idCompra")));
                 detalleCompra.setProducto(pd.buscarProducto(rs.getInt("idProducto")));
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El detalle de compra no existe");
             }
             ps.close();
-        }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de detalle de compra "+ ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de detalle de compra " + ex.getMessage());
         }
-        
+
         return detalleCompra;
     }
- }   
 
     public List<DetalleCompra> obtenerDetalleCompra(int idCompra) {
-        
+
         List<DetalleCompra> detalles = new ArrayList<>();
+        
         DetalleCompra dc = null;
         String sql = "SELECT * FROM detalleCompra WHERE idCompra = ?";
-        PreparedStatement ps=null;
-        try{
+        PreparedStatement ps = null;
+        try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, idCompra);
-            
+
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                dc=new DetalleCompra();
+                dc = new DetalleCompra();
                 dc.setIdDetalle(rs.getInt("idDetalle"));
                 dc.setCantidad(rs.getInt("cantidad"));
                 dc.setPrecioCosto(rs.getDouble("precioCosto"));
-                
-                Compra c = cd.obtenerComprasPorId(rs.getInt("idCompra"));
-                
+
+                Compra c = cd.buscarCompra(rs.getInt("idCompra"));
+
                 dc.setCompra(c);
-                
-                Producto p=pd.buscarProducto(rs.getInt("idProducto"));
+
+                Producto p = pd.buscarProducto(rs.getInt("idProducto"));
                 dc.setProducto(p);
                 detalles.add(dc);
             }
 
         } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error al obtener el Detalle: "+ex.getMessage());        }
+            JOptionPane.showMessageDialog(null, "Error al obtener el Detalle: " + ex.getMessage());
+        }
 
         return detalles;
     }
-    
-    public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) { 
+
+    public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) {
 
         String sql = "UPDATE detalleCompra SET cantidad=?, precioCosto=?  WHERE idDetalle=?";
         PreparedStatement ps = null;
-        try
-        {
+        try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, cantidad);
             ps.setDouble(2, precioCosto);
             ps.setInt(3, idDetalle);
 
             int filas = ps.executeUpdate();
-            if (filas == 1)
-            {
-               
-          
-            
+            if (filas == 1) {
+
                 JOptionPane.showMessageDialog(null, "Detalle de Compra modificada");
-            } else
-            {
+            } else {
                 JOptionPane.showMessageDialog(null, "No se encontro la Compra!" + ps.toString());
             }
             ps.close();//cerramos la conexion
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar Detalle de Compra: " + ex.getMessage());
         }
     }
-    
-    
-    
-    
-        public void borrarDetalleCompra(int idDetalle) {
+
+    public void borrarDetalleCompra(int idDetalle) {
 
         try {
 
@@ -181,4 +171,3 @@ public class DetalleCompraData {
     }
 
 }
-

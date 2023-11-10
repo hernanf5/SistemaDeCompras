@@ -19,6 +19,7 @@ public class ListaProductos extends javax.swing.JInternalFrame {
 
     private ProductoData produc = new ProductoData();
     private List<Producto> fuente;
+    private List<Producto> fuente2;
 
     /**
      * Creates new form ListaProductos
@@ -27,8 +28,11 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         initComponents();
 
         fuente = produc.listarProductos();
-        cargarProveedor();
+        fuente2 = produc.stockMinimo();
 
+        String ids[] = {"Identificador", "Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "estado"};
+        tab.setColumnIdentifiers(ids);
+        jTListaProd.setModel(tab);
     }
 
     /**
@@ -42,7 +46,6 @@ public class ListaProductos extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jCListaProd = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTListaProd = new javax.swing.JTable();
         jBSalir = new javax.swing.JButton();
@@ -50,17 +53,12 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         jBModificar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
+        jTBusqueda = new javax.swing.JTextField();
 
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel1.setText("Listado");
-
-        jCListaProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCListaProdActionPerformed(evt);
-            }
-        });
 
         jTListaProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,6 +104,12 @@ public class ListaProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        jTBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTBusquedaKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,13 +129,13 @@ public class ListaProductos extends javax.swing.JInternalFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(jLabel2)
-                        .addGap(77, 77, 77)
-                        .addComponent(jCListaProd, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(72, 72, 72)
+                        .addComponent(jTBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -147,13 +151,13 @@ public class ListaProductos extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCListaProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jRadioButton1)
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBSalir)
                     .addComponent(jBEliminarProc)
@@ -168,16 +172,16 @@ public class ListaProductos extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < jTListaProd.getRowCount(); i++) {
 
-            int Identificador = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
+            int Identificador = Integer.parseInt(jTListaProd.getValueAt(i, 0).toString());
             String nombreProd = (String) jTListaProd.getValueAt(i, 1).toString();
             String descripcion = (String) jTListaProd.getValueAt(i, 2).toString();
             Double precioActual = Double.parseDouble(jTListaProd.getValueAt(i, 3).toString());
             int stock = Integer.parseInt(jTListaProd.getValueAt(i, 4).toString());
-             int stockMinimo = Integer.parseInt(jTListaProd.getValueAt(i, 5).toString());
+            int stockMinimo = Integer.parseInt(jTListaProd.getValueAt(i, 5).toString());
             boolean estado = (boolean) jTListaProd.getValueAt(i, 6);
 
             Producto producto = new Producto(Identificador, nombreProd, descripcion, precioActual, stock, stockMinimo, estado);
-            
+
             produc.modificarProducto(producto);
 
         }
@@ -187,30 +191,20 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jBSalirActionPerformed
 
-    private void jCListaProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCListaProdActionPerformed
-       
-        int id = ((Producto) jCListaProd.getSelectedItem()).getIdProducto();
-        String ids[] = {"Identificador","Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "Estado"};
-        tab.setColumnIdentifiers(ids);
-        jTListaProd.setModel(tab);
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         borrarFilas();
 
-        for (Producto tabMos : fuente) {
-            if (tabMos.getIdProducto() == id) {
-                tab.addRow(new Object[]{tabMos.getIdProducto(),tabMos.getNombreProducto(), tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(), tabMos.getStockMinimo(), tabMos.isEstado()});
-            }
+        for (Producto tabMos : fuente2) {
+
+            tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getNombreProducto(),
+                tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
+                tabMos.getStockMinimo(), tabMos.isEstado()});
         }
-
-    }//GEN-LAST:event_jCListaProdActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jBEliminarProcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarProcActionPerformed
         int filaSeleccionada = jTListaProd.getSelectedRow();
         if (filaSeleccionada != -1) {
-            Producto a = (Producto) jCListaProd.getSelectedItem();
 
             int idProducto = (Integer) tab.getValueAt(filaSeleccionada, 0);
 
@@ -219,17 +213,31 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBEliminarProcActionPerformed
 
+    private void jTBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTBusquedaKeyReleased
+        borrarFilas();
+
+        for (Producto tabMos : fuente) {
+            if (tabMos.getNombreProducto().toLowerCase().startsWith(jTBusqueda.getText().toLowerCase())) {
+                tab.addRow(new Object[]{tabMos.getIdProducto(), tabMos.getNombreProducto(),
+                    tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
+                    tabMos.getStockMinimo(), tabMos.isEstado()});
+
+            }
+        }
+
+
+    }//GEN-LAST:event_jTBusquedaKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBEliminarProc;
     private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<Producto> jCListaProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTBusqueda;
     private javax.swing.JTable jTListaProd;
     // End of variables declaration//GEN-END:variables
  private void borrarFilas() {
@@ -240,9 +248,4 @@ public class ListaProductos extends javax.swing.JInternalFrame {
         }
     }
 
-    private void cargarProveedor() {
-        for (Producto item : fuente) {
-            jCListaProd.addItem(item);
-        }
-    }
 }
