@@ -20,13 +20,8 @@ public class DetalleCompraData {
 
     private Connection con = null;
 
-    private ProductoData pd = new ProductoData();
-    private CompraData cd = new CompraData();
-    private int idDetalle;
-    private int cantidad;
-    private double precioCosto;
-    private Compra compra;
-    private Producto producto;
+
+
 
     public DetalleCompraData() {
 
@@ -93,7 +88,8 @@ public class DetalleCompraData {
 
         List<DetalleCompra> detalles = new ArrayList<>();
         
-        DetalleCompra dc = null;
+        
+        
         String sql = "SELECT * FROM detalleCompra WHERE idCompra = ?";
         PreparedStatement ps = null;
         try {
@@ -103,7 +99,9 @@ public class DetalleCompraData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                dc = new DetalleCompra();
+                DetalleCompra dc = new DetalleCompra();
+                CompraData cd = new CompraData();
+                ProductoData pd = new ProductoData();
                 dc.setIdDetalle(rs.getInt("idDetalle"));
                 dc.setCantidad(rs.getInt("cantidad"));
                 dc.setPrecioCosto(rs.getDouble("precioCosto"));

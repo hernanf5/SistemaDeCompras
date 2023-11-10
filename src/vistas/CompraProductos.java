@@ -5,6 +5,8 @@
 package vistas;
 
 import AccesoADatos.CompraData;
+import AccesoADatos.ProductoData;
+import AccesoADatos.ProveedorData;
 import Entidades.Compra;
 import Entidades.DetalleCompra;
 import Entidades.Producto;
@@ -25,10 +27,12 @@ public class CompraProductos extends javax.swing.JInternalFrame {
 
     private Compra compraActual = null;
     private CompraData comp = new CompraData();
-    private List<DetalleCompra> detalle = new ArrayList<>();
-    private DetalleCompra detalleActual = null;
+    private ProductoData pd = new ProductoData();
+    private ProveedorData pvd = new ProveedorData();
+    private List<Proveedor> proveedores= pvd.listarProveedor();
+    private List<Producto> productos= pd.listarProductos();
+    private List<DetalleCompra> listaDetalles = new ArrayList<>();
     DefaultTableModel tab = new DefaultTableModel();
-    private List<String> carrito = new ArrayList();
     
 
     /**
@@ -36,7 +40,9 @@ public class CompraProductos extends javax.swing.JInternalFrame {
      */
     public CompraProductos() {
         initComponents();
-
+        cargarProveedores();
+        cargarProductos();
+        
     }
 
     /**
@@ -84,6 +90,12 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         jLabel3.setText("Fecha :");
 
         jLabel4.setText("Producto :");
+
+        jCProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCProductoActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Estado : ");
 
@@ -235,25 +247,27 @@ public class CompraProductos extends javax.swing.JInternalFrame {
 
         try {
 
-            Proveedor Prov = ((Proveedor) jCProveedores.getSelectedItem());
+            Proveedor prov = ((Proveedor) jCProveedores.getSelectedItem());
             java.util.Date afecha = jDfecha.getDate();
             LocalDate fechaComp = afecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Producto Prod = ((Producto) jCProducto.getSelectedItem());
             boolean estado = jREstado.isSelected();
             Integer precio = Integer.parseInt(jTPrecio.getText());
             Integer cantidad = Integer.parseInt(jTcantidad.getText());
+            
             if(compraActual == null){                
-            Compra compraActual = new Compra(Prov, fechaComp,estado);
+                compraActual = new Compra(prov, fechaComp,estado);
             }
             DetalleCompra detalleActual = new DetalleCompra(cantidad,precio,compraActual,Prod);
-            detalle.add (detalleActual);
-            carrito.add (cantidad.toString(),precio.toString(),Prod.getNombreProducto());
-            String ids[] = {"Cantidad", "Precio", "Producto"};
+            listaDetalles.add (detalleActual);
+            String ids[] = {"Cantidad", "Precio unitario", "Producto", "Descripcion"};
             
             tab.setColumnIdentifiers(ids);
             jTProductos.setModel(tab);
-            limpiarCampos();
-            
+            borrarFilas();
+            for(DetalleCompra detalle : listaDetalles){
+                tab.addRow(new Object[]{detalle.getCantidad(), detalle.getPrecioCosto(), detalle.getProducto().getNombreProducto(), detalle.getProducto().getDescripcion()});
+            }
             
   
             
@@ -278,6 +292,10 @@ public class CompraProductos extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProductoActionPerformed
+        
+    }//GEN-LAST:event_jCProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,6 +339,18 @@ public class CompraProductos extends javax.swing.JInternalFrame {
             tab.removeRow(i);
         }
     }
+    
+    private void cargarProveedores() {
+        for (Proveedor item : proveedores) {
+            jCProveedores.addItem(item);
+        }
+    }
+    private void cargarProductos() {
+        for (Producto item : productos) {
+            jCProducto.addItem(item);
+        }
+    }
+        
     
 
 }
