@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vistas;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -44,6 +45,7 @@ public class ProveMax extends javax.swing.JFrame {
         jMCompra = new javax.swing.JMenu();
         jMCompraProducta = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMProducto = new javax.swing.JMenu();
         jMAgregarProductos = new javax.swing.JMenuItem();
         jMListaProductos = new javax.swing.JMenuItem();
@@ -92,6 +94,14 @@ public class ProveMax extends javax.swing.JFrame {
             }
         });
         jMCompra.add(jMenuItem3);
+
+        jMenuItem4.setText("Listado de Compra");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMCompra.add(jMenuItem4);
 
         jMenuBar1.add(jMCompra);
 
@@ -218,13 +228,22 @@ public class ProveMax extends javax.swing.JFrame {
     }//GEN-LAST:event_jMListaFechaActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-           jDescritorio.removeAll();
+        jDescritorio.removeAll();
         jDescritorio.repaint();
         detalleCompra dc = new detalleCompra();
         dc.setVisible(true);
         jDescritorio.add(dc);
         jDescritorio.moveToFront(dc);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        ListadoDeCompras lc = new ListadoDeCompras();
+        lc.setVisible(true);
+        jDescritorio.add(lc);
+        jDescritorio.moveToFront(lc);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,6 +295,7 @@ public class ProveMax extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
