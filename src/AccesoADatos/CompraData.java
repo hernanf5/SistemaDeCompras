@@ -90,13 +90,14 @@ public class CompraData {
 
     }
 
-    public List<Compra> listarProductos() {
+    public List<Compra> listarCompras() {
         List<Compra> compras = new ArrayList<>();
 
         try {
             String sql = "SELECT * from compra WHERE Estado =1 ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                 Compra compra = new Compra();
                 ProveedorData pd = new ProveedorData();

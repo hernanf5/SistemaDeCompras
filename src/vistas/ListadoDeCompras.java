@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoDeCompras extends javax.swing.JInternalFrame {
 
     private CompraData comp = new CompraData();
-   private List<Compra> compra= comp.listarProductos() ;
+   private List<Compra> compra= comp.listarCompras() ;
     
     DefaultTableModel tab = new DefaultTableModel();
 
@@ -39,7 +39,7 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
 
         jBSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTListCom = new javax.swing.JTable();
         jCLisCom = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -54,7 +54,7 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTListCom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,7 +65,7 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTListCom);
 
         jCLisCom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,9 +132,10 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
 
     private void jCLisComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCLisComActionPerformed
       int id = ((Compra) jCLisCom.getSelectedItem()).getIdCompra();
+      
         String ids[] = {"idCompra", "idProveedor", "Fecha"};
         tab.setColumnIdentifiers(ids);
-        jTable1.setModel(tab);
+        jTListCom.setModel(tab);
        borrarFilas();
         
         for (Compra tabMos : compra) {
@@ -142,7 +143,6 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
                 tab.addRow(new Object[]{tabMos.getIdCompra(),tabMos.getProveedor(),tabMos.getFecha()});
             }
         }
-
 
     }//GEN-LAST:event_jCLisComActionPerformed
 
@@ -154,7 +154,7 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTListCom;
     // End of variables declaration//GEN-END:variables
   private void borrarFilas() {
         int indice = tab.getRowCount() - 1;
