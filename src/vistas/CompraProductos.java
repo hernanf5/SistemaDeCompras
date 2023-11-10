@@ -4,9 +4,7 @@
  */
 package vistas;
 
-import AccesoADatos.CompraData;
-import AccesoADatos.ProductoData;
-import AccesoADatos.ProveedorData;
+import AccesoADatos.*;
 import Entidades.Compra;
 import Entidades.DetalleCompra;
 import Entidades.Producto;
@@ -28,6 +26,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
     private Compra compraActual = null;
     private CompraData comp = new CompraData();
     private ProductoData pd = new ProductoData();
+    private DetalleCompraData dcd = new DetalleCompraData();
     private ProveedorData pvd = new ProveedorData();
     private List<Proveedor> proveedores= pvd.listarProveedor();
     private List<Producto> productos= pd.listarProductos();
@@ -71,7 +70,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         jDfecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTProductos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBGuardar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
 
         setClosable(true);
@@ -137,10 +136,10 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTProductos);
 
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBGuardar.setText("Confirmar");
+        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBGuardarActionPerformed(evt);
             }
         });
 
@@ -182,7 +181,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jBSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(69, 69, 69))
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
@@ -224,7 +223,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jTcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(jBGuardar))
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBAgregarCarro)
@@ -259,7 +258,19 @@ public class CompraProductos extends javax.swing.JInternalFrame {
                 compraActual = new Compra(prov, fechaComp,estado);
             }
             DetalleCompra detalleActual = new DetalleCompra(cantidad,precio,compraActual,Prod);
-            listaDetalles.add (detalleActual);
+            boolean encontrado = false;
+            for(DetalleCompra comparar : listaDetalles){
+                
+                if(comparar.getProducto().getIdProducto() == detalleActual.getProducto().getIdProducto()){
+                    comparar.setCantidad(comparar.getCantidad()+detalleActual.getCantidad());
+                    encontrado = true;
+                    break;
+                }
+            }
+            if(!encontrado){
+                listaDetalles.add (detalleActual);
+            }
+            
             String ids[] = {"Cantidad", "Precio unitario", "Producto", "Descripcion"};
             
             tab.setColumnIdentifiers(ids);
@@ -268,13 +279,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
             for(DetalleCompra detalle : listaDetalles){
                 tab.addRow(new Object[]{detalle.getCantidad(), detalle.getPrecioCosto(), detalle.getProducto().getNombreProducto(), detalle.getProducto().getDescripcion()});
             }
-            
-  
-            
-            
-
-
-            
+            limpiarCamposDetalle();
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe ingresar los campos correctamente");
         }
@@ -289,9 +294,14 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCProveedoresActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+        comp.guardarCompra(compraActual);
+        for(DetalleCompra detalleASubir : listaDetalles){
+            detalleASubir.setCompra(compraActual);
+            dcd.guardarDetalleCompra(detalleASubir);
+        }
+        borrarFilas();
+    }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProductoActionPerformed
         
@@ -300,9 +310,9 @@ public class CompraProductos extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregarCarro;
+    private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBNuevo;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<Producto> jCProducto;
     private javax.swing.JComboBox<Proveedor> jCProveedores;
     private com.toedter.calendar.JDateChooser jDfecha;
@@ -327,9 +337,13 @@ public class CompraProductos extends javax.swing.JInternalFrame {
         jDfecha.setDate(new Date());
         jTPrecio.setText("");
         jREstado.setText("");
-        jTPrecio.setText("");
         jTcantidad.setText("");
 
+    }
+        private void limpiarCamposDetalle() {
+
+        jTPrecio.setText("");
+        jTcantidad.setText("");
     }
     
     private void borrarFilas() {
