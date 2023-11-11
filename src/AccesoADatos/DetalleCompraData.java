@@ -121,6 +121,7 @@ public class DetalleCompraData {
 
         return detalles;
     }
+    
 
     public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) {
 

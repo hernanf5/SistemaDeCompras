@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package vistas;
 
-import AccesoADatos.CompraData;
-import Entidades.Compra;
+import AccesoADatos.*;
+import Entidades.*;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,8 +12,10 @@ import javax.swing.table.DefaultTableModel;
 public class ListadoDeCompras extends javax.swing.JInternalFrame {
 
     private CompraData comp = new CompraData();
-   private List<Compra> compra= comp.listarCompras() ;
-    
+    private DetalleCompraData dcd = new DetalleCompraData();
+    private ProductoData pd = new ProductoData();
+    private List<Compra> compra = comp.listarCompras();
+
     DefaultTableModel tab = new DefaultTableModel();
 
     /**
@@ -131,17 +129,19 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jCLisComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCLisComActionPerformed
-      int id = ((Compra) jCLisCom.getSelectedItem()).getIdCompra();
-      
-        String ids[] = {"idCompra", "idProveedor", "Fecha"};
+        int id = ((Compra) jCLisCom.getSelectedItem()).getIdCompra();
+        List<DetalleCompra> detalles = dcd.obtenerDetalleCompra(id);
+        
+
+        String ids[] = {"Producto", "Descripcion", "Cantidad", "Precio unitario","Precio total"};
         tab.setColumnIdentifiers(ids);
         jTListCom.setModel(tab);
-       borrarFilas();
+        borrarFilas();
         
-        for (Compra tabMos : compra) {
-            if (tabMos.getIdCompra() == id) {
-                tab.addRow(new Object[]{tabMos.getIdCompra(),tabMos.getProveedor(),tabMos.getFecha()});
-            }
+
+        for (DetalleCompra detalle : detalles) {
+            tab.addRow(new Object[]{detalle.getProducto().getNombreProducto(), detalle.getProducto().getDescripcion(), detalle.getCantidad(), detalle.getProducto().getPrecioActual(), detalle.getPrecioCosto() });
+            
         }
 
     }//GEN-LAST:event_jCLisComActionPerformed
@@ -158,12 +158,12 @@ public class ListadoDeCompras extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
   private void borrarFilas() {
         int indice = tab.getRowCount() - 1;
-        
+
         for (int i = indice; i >= 0; i--) {
             tab.removeRow(i);
         }
     }
-    
+
     private void cargarCompra() {
         for (Compra item : compra) {
             jCLisCom.addItem(item);
