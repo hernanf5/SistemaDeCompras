@@ -252,6 +252,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
 
                     if (comparar.getProducto().getIdProducto() == detalleActual.getProducto().getIdProducto()) {
                         comparar.setCantidad(comparar.getCantidad() + detalleActual.getCantidad());
+                        comparar.setPrecioCosto(comparar.getPrecioCosto() + detalleActual.getPrecioCosto());
                         encontrado = true;
                         break;
                     }
