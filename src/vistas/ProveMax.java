@@ -255,7 +255,12 @@ public class ProveMax extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+        jDescritorio.removeAll();
+        jDescritorio.repaint();
+        proveedoresPorProducto ppp = new proveedoresPorProducto();
+        ppp.setVisible(true);
+        jDescritorio.add(ppp);
+        jDescritorio.moveToFront(ppp);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
