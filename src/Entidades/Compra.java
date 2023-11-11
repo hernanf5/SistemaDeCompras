@@ -71,7 +71,7 @@ public class Compra {
 
     @Override
     public String toString() {
-        return proveedor + " " + fecha ;
+        return proveedor + " --- " + fecha ;
     }
     
     

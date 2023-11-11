@@ -278,7 +278,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
         limpiarCampos();
-        listaDetalles = new ArrayList<>();;
+        listaDetalles = new ArrayList<>();
         borrarFilas();
         
     }//GEN-LAST:event_jBNuevoActionPerformed
