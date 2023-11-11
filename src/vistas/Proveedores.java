@@ -200,10 +200,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
 
             } else {
 
-                proveActual.setRazonSocial(razon);
-                proveActual.setDomicilio(domi);
-                proveActual.setTelefono(tel);
-                proveActual.setEstado(estado);
+                limpiarCampos();
 
             }
 

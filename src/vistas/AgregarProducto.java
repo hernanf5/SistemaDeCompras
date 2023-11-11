@@ -204,7 +204,7 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
                 boolean encontrado = false;
 
                 for (Producto com : repetir) {
-                    if (com.getNombreProducto().equalsIgnoreCase(produActual.getNombreProducto()) || com.getDescripcion().equalsIgnoreCase(produActual.getDescripcion())) {
+                    if (com.getNombreProducto().equalsIgnoreCase(produActual.getNombreProducto()) && com.getDescripcion().equalsIgnoreCase(produActual.getDescripcion())) {
                         encontrado=true;
                         
                         JOptionPane.showMessageDialog(null, "PRODUCTO YA EXISTENTE.  Modificar STOCK de la tabla LISTA DE PRODUCTO  ");
@@ -214,6 +214,8 @@ public class AgregarProducto extends javax.swing.JInternalFrame {
                 }
                 if (!encontrado) {
                     produ.guardarProducto(produActual);
+                }else{
+                    limpiarCampos();
                 }
             }
 
