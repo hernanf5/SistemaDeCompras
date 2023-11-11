@@ -2,20 +2,22 @@
 package vistas;
 
 import AccesoADatos.ProductoData;
+import Entidades.Producto;
+import java.util.List;
 
 /**
  *
  * @author Ismael
  */
 public class proveedoresPorProducto extends javax.swing.JInternalFrame {
-
+ private ProductoData comp = new ProductoData();
+    private List<Producto> compra = comp.listarProductos();
     /**
      * Creates new form detalleCompra
      */
     public proveedoresPorProducto() {
         initComponents();
-    private ProductoData comp = new ProductoData();
-    private List<Producto> compra = comp.listarCompras();
+   
     } 
 
   
@@ -123,16 +125,16 @@ public class proveedoresPorProducto extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<String> jCDetalles;
+    private javax.swing.JComboBox<Producto> jCDetalles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTListaDetalles;
     // End of variables declaration//GEN-END:variables
-}
-    private void cargarProducto() {
-        for (Compra item : compra) {
-            jCLisCom.addItem(item);
+private void cargarProducto() {
+        for (Producto item : compra) {
+            jCDetalles.addItem(item);
         }
     }
+}
