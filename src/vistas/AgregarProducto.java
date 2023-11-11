@@ -6,6 +6,8 @@ package vistas;
 
 import AccesoADatos.ProductoData;
 import Entidades.Producto;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,9 +15,11 @@ import javax.swing.JOptionPane;
  * @author Cristian
  */
 public class AgregarProducto extends javax.swing.JInternalFrame {
-    
-private ProductoData produ = new ProductoData();
+
+    private ProductoData produ = new ProductoData();
     private Producto produActual = null;
+    private List<Producto> repetir = produ.listarProductos();
+
     /**
      * Creates new form AgregarProducto
      */
@@ -182,35 +186,42 @@ private ProductoData produ = new ProductoData();
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBIngresarActionPerformed
-        try{
+        try {
             String nom = jTNombre.getText();
             String desc = jTDescripcion.getText();
-            if(nom.isEmpty() || desc.isEmpty()){
+            if (nom.isEmpty() || desc.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No pueden haber campos vacios");
                 return;
             }
             Double precio = Double.parseDouble(jTPrecio.getText());
             Integer stock = Integer.parseInt(jTStock.getText());
             Integer stockMinimo = Integer.parseInt(jTStockMinimo.getText());
-            boolean estado =jREstado.isSelected();
-            
-            if(produActual == null){
+            boolean estado = jREstado.isSelected();
+
+            if (produActual == null) {
                 produActual = new Producto(nom, desc, precio, stock, stockMinimo, estado);
-                produ.guardarProducto(produActual);
-            }else{
-                produActual.setNombreProducto(nom);
-                produActual.setDescripcion(desc);
-                produActual.setPrecioActual(precio);
-                produActual.setStock(stock);
-                produActual.setStockMinimo(stockMinimo);
-                produ.modificarProducto(produActual);
-                
+
+                boolean encontrado = false;
+
+                for (Producto com : repetir) {
+                    if (com.getNombreProducto().equalsIgnoreCase(produActual.getNombreProducto()) || com.getDescripcion().equalsIgnoreCase(produActual.getDescripcion())) {
+                        encontrado=true;
+                        
+                        JOptionPane.showMessageDialog(null, "PRODUCTO YA EXISTENTE.  Modificar STOCK de la tabla LISTA DE PRODUCTO  ");
+                        break;
+                    }
+
+                }
+                if (!encontrado) {
+                    produ.guardarProducto(produActual);
+                }
             }
-            
-        }catch(NumberFormatException ex){
-               JOptionPane.showMessageDialog(this, "Ingresar un nombre correcto");
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Ingresar un nombre correcto");
     }//GEN-LAST:event_jBIngresarActionPerformed
     }
+
     private void limpiarCampos() {
         jTNombre.setText("");
         jTDescripcion.setText("");

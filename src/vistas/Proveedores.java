@@ -6,6 +6,7 @@ package vistas;
 
 import AccesoADatos.ProveedorData;
 import Entidades.Proveedor;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,9 +14,10 @@ import javax.swing.JOptionPane;
  * @author Cristian
  */
 public class Proveedores extends javax.swing.JInternalFrame {
-    
+
     private ProveedorData prove = new ProveedorData();
     private Proveedor proveActual = null;
+    private List<Proveedor> repetir = prove.listarProveedor();
 
     /**
      * Creates new form Proveedores
@@ -169,7 +171,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         try {
-            
+
             String razon = jTRazonSocial.getText();
             if (razon.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "No puede haber campos vacios");
@@ -178,31 +180,45 @@ public class Proveedores extends javax.swing.JInternalFrame {
             String domi = jTDomicilio.getText();
             String tel = jTTelefono.getText();
             boolean estado = jREstado.isSelected();
-       
+
             if (proveActual == null) {
-                proveActual = new Proveedor( razon, domi, tel, estado);
-                prove.guardarProveedor(proveActual);
+                proveActual = new Proveedor(razon, domi, tel, estado);
+                boolean encontrado = false;
+
+                for (Proveedor com : repetir) {
+                    if (com.getRazonSocial().equalsIgnoreCase(proveActual.getRazonSocial())&&com.getDomicilio().equalsIgnoreCase(proveActual.getDomicilio())) {
+                        encontrado = true;
+
+                        JOptionPane.showMessageDialog(null, "PROVEEDOR YA EXISTENTE");
+                        break;
+                    }
+
+                }
+                if (!encontrado) {
+                    prove.guardarProveedor(proveActual);
+                }
+
             } else {
-                
+
                 proveActual.setRazonSocial(razon);
                 proveActual.setDomicilio(domi);
                 proveActual.setTelefono(tel);
                 proveActual.setEstado(estado);
-                
+
             }
-            
+
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un identificador valido");
+            JOptionPane.showMessageDialog(this, "Debe ingresar Razon Social valido");
     }//GEN-LAST:event_jBGuardarActionPerformed
     }
-    
+
     private void limpiarCampos() {
-        
+
         jTRazonSocial.setText("");
         jTDomicilio.setText("");
         jTTelefono.setText("");
         jREstado.setText("");
-        
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBGuardar;
