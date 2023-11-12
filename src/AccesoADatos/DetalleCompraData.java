@@ -201,7 +201,7 @@ public class DetalleCompraData {
 
     public List<DetalleCompra> listarDetallesPorCompra(Compra compra) {
         List<DetalleCompra> detalles = new ArrayList<>();
-        String sql = "SELECT * FROM detalle_compra WHERE id_compra = ?";
+        String sql = "SELECT * FROM detallecompra WHERE idCompra = ?";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -209,9 +209,17 @@ public class DetalleCompraData {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    DetalleCompra dc = new DetalleCompra();
+                    CompraData cd = new CompraData();
+                    ProductoData pd = new ProductoData();
                     DetalleCompra detalle = new DetalleCompra();
-                    detalle.setIdDetalle(rs.getInt("id_detalle"));
+                    detalle.setIdDetalle(rs.getInt("idDetalle"));
                     detalle.setCantidad(rs.getInt("cantidad"));
+                    detalle.setPrecioCosto(rs.getDouble("precioCosto"));
+                    Compra c = cd.buscarCompra(rs.getInt("idCompra"));
+                    detalle.setCompra(c);
+                    Producto p = pd.buscarProducto(rs.getInt("idProducto"));
+                    detalle.setProducto(p);
 
                     detalles.add(detalle);
                 }

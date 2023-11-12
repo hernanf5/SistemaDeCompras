@@ -36,11 +36,11 @@ public class ListadoCompraProveedor extends javax.swing.JInternalFrame {
     public ListadoCompraProveedor() {
         initComponents();
         cargarProveedor();
-        String ads[] = {"Identificador", "Nombre", "Descripción", "Precio", "Stock"};
-        String ids[] = {"Identificador", "Fecha", "Estado"};
+        String ads[] = {"Identificador", "Fecha", "Estado"};
+        String ids[] = {"Identificador", "Nombre", "Descripción", "Precio", "Stock"};
         tab.setColumnIdentifiers(ads);
         tab2.setColumnIdentifiers(ids);
-        jTProducto.setModel(tab);
+        jTProducto.setModel(tab2);
         tab.setColumnIdentifiers(ads);
         jTCompra.setModel(tab);
     }
