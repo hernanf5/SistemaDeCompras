@@ -20,9 +20,6 @@ public class DetalleCompraData {
 
     private Connection con = null;
 
-
-
-
     public DetalleCompraData() {
 
         con = Conexion.getCon();
@@ -87,9 +84,7 @@ public class DetalleCompraData {
     public List<DetalleCompra> obtenerDetalleCompra(int idCompra) {
 
         List<DetalleCompra> detalles = new ArrayList<>();
-        
-        
-        
+
         String sql = "SELECT * FROM detalleCompra WHERE idCompra = ?";
         PreparedStatement ps = null;
         try {
@@ -121,13 +116,11 @@ public class DetalleCompraData {
 
         return detalles;
     }
-    
-        public List<DetalleCompra> obtenerDetalleCompraPorProducto(int idProducto) {
+
+    public List<DetalleCompra> obtenerDetalleCompraPorProducto(int idProducto) {
 
         List<DetalleCompra> detalles = new ArrayList<>();
-        
-        
-        
+
         String sql = "SELECT * FROM detalleCompra WHERE idProducto = ?";
         PreparedStatement ps = null;
         try {
@@ -159,7 +152,6 @@ public class DetalleCompraData {
 
         return detalles;
     }
-    
 
     public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) {
 
@@ -207,4 +199,28 @@ public class DetalleCompraData {
         }
     }
 
+    public List<DetalleCompra> listarDetallesPorCompra(Compra compra) {
+        List<DetalleCompra> detalles = new ArrayList<>();
+        String sql = "SELECT * FROM detalle_compra WHERE id_compra = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, compra.getIdCompra());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    DetalleCompra detalle = new DetalleCompra();
+                    detalle.setIdDetalle(rs.getInt("id_detalle"));
+                    detalle.setCantidad(rs.getInt("cantidad"));
+
+                    detalles.add(detalle);
+                }
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla detallecompra " + ex.getMessage());
+        }
+
+        return detalles;
+    }
 }
