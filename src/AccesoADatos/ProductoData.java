@@ -73,15 +73,14 @@ public class ProductoData {
         return producto;
     }
 
-    public List<Producto> buscarProductoPorFechas(LocalDate fecha1, LocalDate fecha2) {
+    public List<Producto> buscarProductoPorFecha(LocalDate fecha1) {
 
         List<Producto> productos = new ArrayList<>();
 
         try {
-            String sql = "SELECT p.* from producto p JOIN detallecompra d ON (p.idProducto = d.idProducto) JOIN compra c ON (c.idCompra = d.idCompra) WHERE c.fecha >= ? AND c.fecha<=?";
+            String sql = "SELECT p.* from producto p JOIN detallecompra d ON (p.idProducto = d.idProducto) JOIN compra c ON (c.idCompra = d.idCompra) WHERE c.fecha = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDate(1, Date.valueOf(fecha1));
-            ps.setDate(2, Date.valueOf(fecha2));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Producto producto = new Producto();

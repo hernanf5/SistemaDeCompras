@@ -5,11 +5,14 @@
  */
 package vistas;
 
+import AccesoADatos.DetalleCompraData;
 import AccesoADatos.ProductoData;
 import Entidades.Producto;
+import Entidades.DetalleCompra;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,9 +29,6 @@ public class ListarProductosFechas extends javax.swing.JInternalFrame {
 
     public ListarProductosFechas() {
         initComponents();
-        String ids[] = {"Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo"};
-        tab.setColumnIdentifiers(ids);
-        jTProductos.setModel(tab);
 
     }
 
@@ -94,14 +94,14 @@ public class ListarProductosFechas extends javax.swing.JInternalFrame {
             }
         });
 
-        jRFechaEspecifica.setText("Busqueda por fecha especifica");
+        jRFechaEspecifica.setText("Productos adquiridos en x fecha");
         jRFechaEspecifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRFechaEspecificaActionPerformed(evt);
             }
         });
 
-        jREntreFechas.setText("Busqueda entre fechas");
+        jREntreFechas.setText("Productos mas comprados entre fechas");
         jREntreFechas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jREntreFechasActionPerformed(evt);
@@ -117,7 +117,6 @@ public class ListarProductosFechas extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(jLabel1))
@@ -133,7 +132,8 @@ public class ListarProductosFechas extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jDCEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(44, 44, 44)
-                                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -172,25 +172,41 @@ public class ListarProductosFechas extends javax.swing.JInternalFrame {
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         List<Producto> productos = new ArrayList<>();
+        List<DetalleCompra> detalles = new ArrayList<>();
         ProductoData pd = new ProductoData();
+        DetalleCompraData dcd = new DetalleCompraData();
         if (jRFechaEspecifica.isSelected()) {
+            borrarFilas();
+            String ids[] = {"Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo"};
+            tab.setColumnIdentifiers(ids);
+            jTProductos.setModel(tab);
             java.util.Date fecha1 = jDCIngreso.getDate();
             LocalDate fechaComp1 = fecha1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            productos = pd.buscarProductoPorFechas(fechaComp1, fechaComp1);
+            productos = pd.buscarProductoPorFecha(fechaComp1);
+
+            for (Producto tabMos : productos) {
+                tab.addRow(new Object[]{tabMos.getNombreProducto(),
+                    tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
+                    tabMos.getStockMinimo(), tabMos.isEstado()});
+            }
         }
+        //editar esto
         if (jREntreFechas.isSelected()) {
+            borrarFilas();
+            String ids[] = {"Nombre Producto", "Descripcion", "Precio Actual", "Stock", "Stock Minimo", "cantidad"};
+            tab.setColumnIdentifiers(ids);
+            jTProductos.setModel(tab);
             java.util.Date fecha1 = jDCIngreso.getDate();
             java.util.Date fecha2 = jDCEgreso.getDate();
             LocalDate fechaComp1 = fecha1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate fechaComp2 = fecha2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            productos = pd.buscarProductoPorFechas(fechaComp1, fechaComp2);
-        }
-        borrarFilas();
+            detalles = dcd.buscarDetallesPorFechas(fechaComp1, fechaComp2);
+            Collections.sort(detalles);
+            //productos = pd.buscarProductoPorFechas(fechaComp1, fechaComp2);
 
-        for (Producto tabMos : productos) {
-            tab.addRow(new Object[]{tabMos.getNombreProducto(),
-                tabMos.getDescripcion(), tabMos.getPrecioActual(), tabMos.getStock(),
-                tabMos.getStockMinimo(), tabMos.isEstado()});
+            for (DetalleCompra tabMos : detalles) {
+                tab.addRow(new Object[]{tabMos.getProducto().getNombreProducto(), tabMos.getProducto().getDescripcion(), tabMos.getProducto().getPrecioActual(), tabMos.getProducto().getStock(), tabMos.getProducto().getStockMinimo(), tabMos.getCantidad()});
+            }
         }
 
 

@@ -8,7 +8,7 @@ package Entidades;
  *
  * @author Hernán Funes
  */
-public class DetalleCompra {
+public class DetalleCompra implements Comparable<DetalleCompra> {
     private int idDetalle;
     private int cantidad;
     private double precioCosto;
@@ -76,6 +76,11 @@ public class DetalleCompra {
     @Override
     public String toString() {
         return "DetalleCompra{" + "idDetalle=" + idDetalle + ", cantidad=" + cantidad + ", precioCosto=" + precioCosto + ", compra=" + compra + ", producto=" + producto + '}';
+    }
+    
+    @Override
+    public int compareTo(DetalleCompra otroDetalleCompra){
+        return Integer.compare(this.cantidad, otroDetalleCompra.cantidad);
     }
     
     

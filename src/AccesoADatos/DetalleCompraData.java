@@ -8,6 +8,7 @@ import Entidades.Compra;
 import Entidades.DetalleCompra;
 import Entidades.Producto;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -152,6 +153,34 @@ public class DetalleCompraData {
 
         return detalles;
     }
+    
+    public List<DetalleCompra> buscarDetallesPorFechas(LocalDate fecha1, LocalDate fecha2) {
+
+        List<DetalleCompra> detalles = new ArrayList<>();
+
+        try {
+            String sql = "SELECT d.* FROM detallecompra d JOIN compra c ON (c.idCompra = d.idCompra) WHERE c.fecha >= ? AND fecha <= ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(fecha1));
+            ps.setDate(2, Date.valueOf(fecha2));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DetalleCompra detalle = new DetalleCompra();
+                ProductoData pd = new ProductoData();
+                CompraData cd = new CompraData();
+                detalle.setIdDetalle(rs.getInt("idDetalle"));
+                detalle.setCantidad(rs.getInt("cantidad"));
+                detalle.setPrecioCosto(rs.getDouble("precioCosto"));
+                detalle.setCompra(cd.buscarCompra(rs.getInt("idCompra")));
+                detalle.setProducto(pd.buscarProducto(rs.getInt("idProducto")));
+                detalles.add(detalle);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a las tablas " + ex.getMessage());
+        }
+        return detalles;
+    }
 
     public void modificarDetalleCompra(int idDetalle, int cantidad, double precioCosto) {
 
@@ -170,7 +199,7 @@ public class DetalleCompraData {
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontro la Compra!" + ps.toString());
             }
-            ps.close();//cerramos la conexion
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al modificar Detalle de Compra: " + ex.getMessage());
         }
