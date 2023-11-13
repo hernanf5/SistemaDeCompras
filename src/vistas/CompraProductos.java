@@ -242,6 +242,11 @@ public class CompraProductos extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "La cantidad supera al stock actual, el stock actual es: " + Prod.getStock());
             } else {
                 Prod.setStock(Prod.getStock() - cantidad);
+                if(Prod.getStock() == Prod.getStockMinimo()){
+                    JOptionPane.showMessageDialog(null, "STOCK MINIMO ALCANZADO");
+                }else if(Prod.getStock() == 0){
+                    JOptionPane.showMessageDialog(null, "CON ESTA COMPRA EL STOCK LLEGO A 0");
+                }
                 if (compraActual == null) {
                     compraActual = new Compra(prov, fechaComp, true);
                 }
