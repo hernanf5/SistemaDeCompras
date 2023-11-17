@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2023 a las 03:43:50
+-- Tiempo de generación: 17-11-2023 a las 18:52:50
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -34,6 +34,21 @@ CREATE TABLE `compra` (
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`idCompra`, `idProveedor`, `fecha`, `Estado`) VALUES
+(4, 2, '2023-12-18', 0),
+(5, 2, '2023-11-10', 0),
+(6, 2, '2023-11-08', 1),
+(7, 2, '2023-11-11', 1),
+(8, 2, '2023-11-11', 1),
+(9, 2, '2023-11-14', 1),
+(10, 5, '2023-11-02', 1),
+(11, 6, '2023-11-06', 1),
+(12, 6, '2023-11-06', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +63,29 @@ CREATE TABLE `detallecompra` (
   `idProducto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detallecompra`
+--
+
+INSERT INTO `detallecompra` (`idDetalle`, `cantidad`, `precioCosto`, `idCompra`, `idProducto`) VALUES
+(2, 12, 18.6, 4, 1),
+(14, 7, 15.6, 4, 3),
+(15, 20, 300000, 6, 6),
+(16, 10, 10, 6, 5),
+(17, 100, 72800, 7, 2),
+(18, 2, 1600, 8, 2),
+(19, 1, 800, 8, 3),
+(20, 1, 800, 8, 4),
+(21, 3, 1500, 8, 6),
+(22, 2, 1600, 9, 2),
+(23, 1, 700, 9, 9),
+(24, 4, 400, 9, 4),
+(25, 2, 400, 10, 5),
+(26, 2, 1600, 11, 2),
+(27, 2, 200, 11, 4),
+(28, 1, 600, 12, 6),
+(29, 1, 1000, 12, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +98,7 @@ CREATE TABLE `producto` (
   `descripcion` varchar(50) NOT NULL,
   `precioActual` double NOT NULL,
   `stock` int(11) NOT NULL,
+  `stockMinimo` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -67,11 +106,16 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioActual`, `stock`, `estado`) VALUES
-(1, 'Coca Cola', 'gaseosa 2,5L', 900, 60, 0),
-(2, 'Producto de Prueba', 'test', 800, 100, 1),
-(3, 'Producto de Prueba', 'test', 800, 100, 1),
-(4, 'Producto de Prueba', 'test', 800, 100, 1);
+INSERT INTO `producto` (`idProducto`, `nombreProducto`, `descripcion`, `precioActual`, `stock`, `stockMinimo`, `estado`) VALUES
+(1, 'Coca Cola', 'gaseosa 2,5L', 900, 60, 0, 0),
+(2, 'Heladera', 'Samsung', 800, 44, 10, 1),
+(3, 'Lavarropas', 'Drean', 500, 99, 10, 1),
+(4, 'Plancha', 'LG', 100, 93, 15, 1),
+(5, 'Licuadora', 'Bosch', 200, 8, 15, 1),
+(6, 'televisor', 'Hitachi 43', 600, 1, 10, 1),
+(7, 'Aire acondicionado', 'BGH', 1000, 4, 50, 1),
+(8, 'borrar', 'para borrar', 1, 1, 1, 0),
+(9, 'Heladera', 'Kohinoor', 700, 3, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -93,7 +137,11 @@ CREATE TABLE `proveedor` (
 
 INSERT INTO `proveedor` (`idProveedor`, `razonSocial`, `domicilio`, `telefono`, `Estado`) VALUES
 (1, 'San Gines', 'c/Las Tarimas 80', '2664151615', 0),
-(2, 'Arcor', 'c/Las Tarimas 86', '2664151614', 1);
+(2, 'Linde', 'c/Las Tarimas 86', '2664151614', 1),
+(3, 'Disar', 'calle falsa 123', '222111555', 1),
+(4, 'proveedor de prueba', 'aaa 111', '1230981290834', 0),
+(5, 'Bosch', 'san luis', '11111', 1),
+(6, 'T&HA', 'Buenos Aires', '11111', 1);
 
 --
 -- Índices para tablas volcadas
@@ -111,8 +159,7 @@ ALTER TABLE `compra`
 --
 ALTER TABLE `detallecompra`
   ADD PRIMARY KEY (`idDetalle`),
-  ADD UNIQUE KEY `idCompra` (`idCompra`,`idProducto`),
-  ADD KEY `idProducto` (`idProducto`);
+  ADD UNIQUE KEY `idCompra` (`idCompra`,`idProducto`);
 
 --
 -- Indices de la tabla `producto`
@@ -134,25 +181,25 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `idCompra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCompra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `detallecompra`
 --
 ALTER TABLE `detallecompra`
-  MODIFY `idDetalle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas

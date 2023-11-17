@@ -304,6 +304,7 @@ public class CompraProductos extends javax.swing.JInternalFrame {
             pd.modificarProducto(detalleASubir.getProducto());
         }
         borrarFilas();
+        listaDetalles = new ArrayList<>();
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCProductoActionPerformed
